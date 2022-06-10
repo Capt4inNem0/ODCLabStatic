@@ -16514,8 +16514,8 @@ Desensamblado de la sección .text:
    90190:	9400001d 	bl	90204 <Bandera>
    90194:	d2802595 	mov	x21, #0x12c                 	// #300
    90198:	d2801396 	mov	x22, #0x9c                  	// #156
-   9019c:	d29ee4aa 	mov	x10, #0xf725                	// #63269
-   901a0:	f2a012ea 	movk	x10, #0x97, lsl #16
+   9019c:	d284d18a 	mov	x10, #0x268c                	// #9868
+   901a0:	f2a01faa 	movk	x10, #0xfd, lsl #16
    901a4:	9400003a 	bl	9028c <DrawPixel>
    901a8:	14000041 	b	902ac <InfLoop>
 

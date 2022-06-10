@@ -84,8 +84,8 @@ bl Bandera
 //Chispas
 mov x21, 300
 mov x22, 156
-movz x10, 0xF725, lsl 00
-movk x10, 0x0097, lsl 16
+movz x10, 0x268c, lsl 00 // f725
+movk x10, 0x00fd, lsl 16 // 0097
 bl DrawPixel
 
 
