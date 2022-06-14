@@ -1,8 +1,6 @@
-
 .equ SCREEN_WIDTH, 		640
 .equ SCREEN_HEIGH, 		480
 .equ BITS_PER_PIXEL,  	32
-
 
 .globl main
 main:
@@ -10,17 +8,14 @@ main:
 // X0 contiene la direccion base del framebuffer
 mov x20, x0 // Save framebuffer base address to x20
 
-movz x10, 0xffff, lsl 00 // GENERAL
+movz x10, 0xffff, lsl 00 // Direccion de memoria del color en uso
 movk x10, 0xffff, lsl 16
-// END COLORES
 
-// FONDO
-bl DrawFondo
-// END FONDO
+bl DrawFondo // Dibuja el fondo
 
 // ESTRELLAS
 Estrellas:
-movz x10, 0xffff, lsl 00 // color BLANCO
+movz x10, 0xffff, lsl 00 // Select color BLANCO
 movk x10, 0xffff, lsl 16
 mov x26, 6 // RADIO DEL CIRCULO 
 mov x24,320 // coordenada x del centro del circulo teniendo en cuenta un eje cartesiano con el (0,0) en la esquina inferior derecha
@@ -65,7 +60,7 @@ bl DrawCircle
 // END STARS
 
 // BODY
-// BordesCuerpo:
+BordesCuerpo:
 mov w10,WZR
 mov x3,264 // x
 mov x4,96 // y
@@ -88,7 +83,7 @@ bl DrawSquare
 // END BORDESCUERPO
 
 // BREAD
-movz x10, 0xcb98, lsl 00 //Masa: 0xfecb98
+movz x10, 0xcb98, lsl 00 // Select color BREAD
 movk x10, 0x00fe, lsl 16
 
 add x3, x3, 24
@@ -105,8 +100,8 @@ bl DrawSquare
 
 // END BREAD
 
-// CREMA: // Dibuja la crema rosa del cuerpo del gato
-movz x10, 0x99f7, lsl 00 //crema: 0xf399f7
+Crema:
+movz x10, 0x99f7, lsl 00 // Select color ROSA
 movk x10, 0x00f3, lsl 16
 
 add x3, x3, 12
@@ -130,7 +125,6 @@ bl DrawSquare
 // END CREMA
 
 // END BODY
-
 
 Arcoiris:
 mov x22,192
