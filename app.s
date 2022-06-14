@@ -10,20 +10,6 @@ main:
 // X0 contiene la direccion base del framebuffer
 mov x20, x0 // Save framebuffer base address to x20
 
-// COLORES
-movz x15, 0x99f7, lsl 00 //crema: 0xf399f7
-movk x15, 0x00f3, lsl 16
-
-
-
-movz x13, 0xffff, lsl 00 // BLANCO
-movk x13, 0xffff, lsl 16
-
-movz x12, 0x0000, lsl 00 // NEGRO
-movk x12, 0x0000, lsl 16
-
-movz x11, 0x3366, lsl 00 // FONDO
-
 movz x10, 0xffff, lsl 00 // GENERAL
 movk x10, 0xffff, lsl 16
 // END COLORES
@@ -32,8 +18,8 @@ movk x10, 0xffff, lsl 16
 bl DrawFondo
 // END FONDO
 
-// STARS (in the shape of circles)
-
+// ESTRELLAS
+Estrellas:
 movz x10, 0xffff, lsl 00 // color BLANCO
 movk x10, 0xffff, lsl 16
 mov x26, 6 // RADIO DEL CIRCULO 
@@ -540,10 +526,8 @@ br lr
 // FUNCION DIBUJAR CIRCULO
 
 DrawCircle:
-mov x27,x30
-
+mov x27,x30 // Guarda la direccion de retorno en x27
 mov x0,x20 // LLEVA EL PUNTERO DEL PIXEL AL AL INICIO
-
 mov x2, 480 // GUARDA EN X2 LA CANTIDAD DE FILAS QUE VAMOS A RECORRER
 dcLoop:
 mov x1,640 // GUARDA EN X2 LA CANTIDAD DE COLUMNAS QUE " ...
@@ -578,7 +562,7 @@ mov x3,0
 mov x4,0
 mov x5,640
 mov x6,480
-mov w10,w11
+movz w10,0x3366, lsl 00 // Setea color del fondo
 
 mov x0,x20 // VA AL INICIO
 sub x2,x6,x4 // Calcula el alto
@@ -611,7 +595,7 @@ movz x21, 0x0001, lsl 00 // Aca usamos x21 porque de todos modos le vamos a borr
 movk x21, 0x0003, lsl 16 // Setea un color para que vaya aumentando el rojo y el azul
 add w10,w10,w21 // Suma uno al color AZUL y ROJO
 mov x21,0   // RESETEA EL CONTADOR (Aca es donde reseteamos x21 por eso no importa usarlo como color)
-skipBlue: // Continua el ciclo de 9
+skipResetBlue: // Continua el ciclo de 9
 add x21,x21,1 // Suma 1 al contador
 sub x2,x2,1 // Resta el contador del alto del rectangulo
 cbnz x2,dfLoop
