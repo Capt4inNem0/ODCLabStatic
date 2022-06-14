@@ -604,27 +604,20 @@ mov x9,4 // AUX
 mul x8,x8,x9
 add x0,x0,x8
 
-// COMPARA AZUL
 mov x22, 9
-cmp x21,x22
-b.ne skipBlue
-add w10,w10,1 // Suma uno al color AZUL
-// TODO Añadir 1 cada 9 tambien a ROJO
-// TODO Ir de #003366 a #39109c
-
-mov x21,0
-skipBlue:
-add x21,x21,1
-sub x2,x2,1
+cmp x21,x22 // COMPARA CONTADOR NUEVE
+b.ne skipResetBlue // SI NO TERMINO EL CONTADOR, NO LO RESETEA
+movz x21, 0x0001, lsl 00 // Aca usamos x21 porque de todos modos le vamos a borrar el contenido mas adelante
+movk x21, 0x0003, lsl 16 // Setea un color para que vaya aumentando el rojo y el azul
+add w10,w10,w21 // Suma uno al color AZUL y ROJO
+mov x21,0   // RESETEA EL CONTADOR (Aca es donde reseteamos x21 por eso no importa usarlo como color)
+skipBlue: // Continua el ciclo de 9
+add x21,x21,1 // Suma 1 al contador
+sub x2,x2,1 // Resta el contador del alto del rectangulo
 cbnz x2,dfLoop
 
 DrawFondoReturn:
 br lr
-
-degrade:
-
-
-
 
 end:
 
