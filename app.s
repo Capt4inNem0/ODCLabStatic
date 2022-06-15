@@ -484,54 +484,68 @@ add x6, x4, 120
 bl DrawSquare
 
 //Boca y ojos
+
 movz x10, 0x0000, lsl 00 // Set color in black
 movk x10, 0x0000, lsl 16
 
-sub x21, x3
-//mov x21, 444
-//mov x22, 276
+//Primer ojo
+sub x21, x3, 108 //432
+add x22, x4, 60 // 240 direccion base de referencia
 bl DrawPixel
 
-mov x21, 480
-mov x22, 276
-bl DrawPixel
-
-mov x21, 516
-mov x22, 276
-bl DrawPixel
-
-mov x3, 444
-mov x4, 288
-mov x5, 528
-mov x6, 300
+add x3, x21, 0 //mov x3, 432
+add x4, x22, 0 //mov x4, 240
+add x5, x21, 24 //mov x5, 456
+add x6, x22, 24 //mov x6, 264
 bl DrawSquare
-
-mov x3, 516
-mov x4, 240
-mov x5, 540
-mov x6, 264
-bl DrawSquare
-
-mov x3, 432
-mov x4, 240
-mov x5, 456
-mov x6, 264
-bl DrawSquare
-
-mov x21, 492   //Nariz
-mov x22, 252
+movz x10, 0xFFFF, lsl 00 // Set color in white
+movk x10, 0x00FF, lsl 16
 bl DrawPixel
+
+//Segundo ojo
+movz x10, 0x0000, lsl 00 // Set color in black
+movk x10, 0x0000, lsl 16
+add x3, x21, 84 //mov x3, 516
+add x4, x22, 0 //mov x4, 240
+add x5, x21, 108 //mov x5, 540
+add x6, x22, 24 //mov x6, 264
+bl DrawSquare
 
 movz x10, 0xFFFF, lsl 00 // Set color in white
 movk x10, 0x00FF, lsl 16
-
-mov x21, 516
-mov x22, 240
+add x21, x21, 84 //mov x21, 516
+//mov x22, 240
 bl DrawPixel
 
-mov x21, 432
-mov x22, 240
+
+//Boca
+movz x10, 0x0000, lsl 00 // Set color in black
+movk x10, 0x0000, lsl 16
+sub x21, x21, 72 // mov x21, 444
+add x22, x22, 36 //mov x22, 276
 bl DrawPixel
+add x21, x21, 36 //mov x21, 480
+//mov x22, 276
+bl DrawPixel
+add x21, x21, 36 //mov x21, 516
+//mov x22, 276
+bl DrawPixel
+sub x3, x21, 72 //mov x3, 444
+add x4, x22, 12 //mov x4, 288
+add x5, x21, 12 //mov x5, 528
+add x6, x22, 24 //mov x6, 300
+bl DrawSquare
+
+movz x10, 0x0000, lsl 00 // Set color in black
+movk x10, 0x0000, lsl 16
+
+//movz x10, 0x3327, lsl 00 // Set color in red BA3327
+//movk x10, 0x00BA, lsl 16
+
+sub x21, x21, 24 //mov x21, 492   //Nariz TODO: CONVERTIR A TRIANGULO POR COMPLETITUD
+sub x22, x22, 24 //mov x22, 252
+bl DrawPixel
+
 
 // TODO: FIN CABEZA
 
@@ -540,13 +554,16 @@ bl DrawPixel
 movz x10, 0x9896, lsl 00 // color mejillas #FD9896
 movk x10, 0x00fd, lsl 16
 mov x26, 10 // RADIO DEL CIRCULO
-mov x24,90// coordenada x del centro del circulo teniendo en cuenta un eje cartesiano con el (0,0) en la esquina inferior derecha
-mov x25,206 // coordenada y  "" ..
+add x24, x21, 58 //mov x24,90// coordenada x del centro del circulo teniendo en cuenta un eje cartesiano con el (0,0) en la esquina inferior derecha
+mov x13, SCREEN_WIDTH
+sub x24, x13, x24
+add x25, x22, 182 //mov x25,206 // coordenada y  "" ..
+sub x25, x13, x25
 bl DrawCircle
 
 mov x26, 10 // RADIO DEL CIRCULO
-mov x24,230 //
-mov x25,206 //
+add x24, x24, 140 //mov x24,230 //
+//mov x25,206 //
 bl DrawCircle
 
 // FIN MEJILLAS
