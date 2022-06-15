@@ -21,44 +21,44 @@ bl DrawFondo
 Estrellas:
 movz x10, 0xffff, lsl 00 // color BLANCO
 movk x10, 0xffff, lsl 16
-mov x26, 6 // RADIO DEL CIRCULO 
+mov x26, 6 // RADIO DEL CIRCULO
 mov x24,320 // coordenada x del centro del circulo teniendo en cuenta un eje cartesiano con el (0,0) en la esquina inferior derecha
 mov x25,440 // coordenada y  "" ..
 bl DrawCircle
 
-mov x26, 12 // RADIO DEL CIRCULO 
+mov x26, 12 // RADIO DEL CIRCULO
 mov x24,380 // (x,y)  centro desde esquina inferior derecha (0,0)
-mov x25,70 // 
+mov x25,70 //
 bl DrawCircle
 
-mov x26, 8 // RADIO DEL CIRCULO 
+mov x26, 8 // RADIO DEL CIRCULO
 mov x24,520// (x,y) centro desde esquina inferior derecha (0,0)
-mov x25,35 // 
+mov x25,35 //
 bl DrawCircle
 
-mov x26, 64 // RADIO DEL CIRCULO 
+mov x26, 64 // RADIO DEL CIRCULO
 mov x24,76 // (x,y) centro desde esquina inferior derecha (0,0)
-mov x25,300 // 
+mov x25,300 //
 bl DrawCircle
 
-mov x26, 32 // RADIO DEL CIRCULO 
+mov x26, 32 // RADIO DEL CIRCULO
 mov x24,580 // (x,y) centro desde esquina inferior derecha (0,0)
-mov x25,128 // 
+mov x25,128 //
 bl DrawCircle
 
-mov x26, 48 // RADIO DEL CIRCULO 
+mov x26, 48 // RADIO DEL CIRCULO
 mov x24,480 // (x,y) centro desde esquina inferior derecha (0,0)
-mov x25,380 // 
+mov x25,380 //
 bl DrawCircle
 
-mov x26, 50 // RADIO DEL CIRCULO 
+mov x26, 50 // RADIO DEL CIRCULO
 mov x24,59 // (x,y) centro desde esquina inferior derecha (0,0)
 mov x25,460 //
 bl DrawCircle
 
-mov x26, 36 // RADIO DEL CIRCULO 
+mov x26, 36 // RADIO DEL CIRCULO
 mov x24,100// (x,y) centro desde esquina inferior derecha (0,0)
-mov x25,16 // 
+mov x25,16 //
 bl DrawCircle
 
 // END STARS
@@ -150,32 +150,70 @@ bl Bandera
 // END ARCOIRIS
 
 //Patas
-// Bordes Patas
+// 1st leg
 movz x10, 0x0000, lsl 00 // Set color in black
 movk x10, 0x0000, lsl 16
 mov x21, 228
 mov x22, 300
 bl DrawPixel
-sub x21, x21, 12
-add x22, x22, 12
+
+
+
+sub x21, x21, 12 // BASE X21 216
+add x22, x22, 12 // BASE X22 312
 bl DrawPixel
-add x3, x21, XZR //mov x3, 216
+
+mov x25, x21
+mov x26, x22 // copia de seguridad del primer pixel de referencia
+
+add x3, x21, 0 //mov x3, 216
 add x4, x22, 12 //mov x4, 324
-add x5, x21, 12//mov x5, 228
-add x6, x22, 24//mov x6, 348
+add x5, x21, 12 //mov x5, 228
+add x6, x22, 36 //mov x6, 348   BASES
 bl DrawSquare
-//add x3, x21, XZR //mov x3, 216
-//add x4, x22, 12//mov x4, 336
-mov x5, 264
-mov x6, 348
+//mov x3, 216
+add x4, x4, 12 //mov x4, 336
+add x5, x5, 36 //mov x5, 264
+//add x6, x6, 00 // mov x6,348
 bl DrawSquare
-mov x21, 252
-mov x22, 324
+add x21, x21, 36//mov x21, 252
+add x22, x22, 12//mov x22, 324 // x22 base parte gris
 bl DrawPixel
+add x21, x21, 12 // 264, x21 base parte gris
+bl DrawPixel
+
+movz x10, 0x9999, lsl 00 // Set color in grey
+movk x10, 0x0099, lsl 16
+sub x3, x21, 36 //mov x3, 228
+sub x4, x22, 12 //mov x4, 312
+sub x5, x21, 12//mov x5, 252
+add x6, x22, 12//mov x6, 336
+bl DrawSquare
+sub x21, x21, 12//mov x21, 252
+sub x22, x22, 12//mov x22, 312
+bl DrawPixel
+
+// me desvio del dibujo principal para dibujar unos pixeles extra
+movz x10, 0x0000, lsl 00 // Set color in black
+movk x10, 0x0000, lsl 16
+
+add x21, x25, 24
+sub x22, x26, 12
+bl DrawPixel
+
+sub x22, x22, 12
+bl DrawPixel
+
+add x22, x22, 12
 add x21, x21, 12
 bl DrawPixel
 
+
+
+
 //2nd leg
+movz x10, 0x0000, lsl 00 // Set color in black
+movk x10, 0x0000, lsl 16
 mov x21, 300
 mov x22, 324
 bl DrawPixel
@@ -185,28 +223,43 @@ add x21, x21, 12
 bl DrawPixel
 add x21, x21, 12
 bl DrawPixel
+add x21, x21, 12 // 336, x21 base parte gris
+sub x22, x22, 12 // 324, x22 base parte gris
+bl DrawPixel
+
+movz x10, 0x9999, lsl 00 // Set color in grey
+movk x10, 0x0099, lsl 16
+sub x21, x21, 24 //mov x21, 312
+//mov x22, 324
+bl DrawPixel
 add x21, x21, 12
-sub x22, x22, 12
 bl DrawPixel
 
 //3rd leg
+movz x10, 0x0000, lsl 00 // Set color in black
+movk x10, 0x0000, lsl 16
 mov x21, 408
 mov x22, 324
 bl DrawPixel
-//mov x3, x21
-//add x4, x22, 12
-//add x5, x21, 36
-//add x6, x22, 12
-mov x3, 420
-mov x4, 336
-mov x5, 468
-mov x6, 348
+add x3, x21, 12
+add x4, x22, 12
+add x5, x21, 48
+add x6, x22, 24
 bl DrawSquare
-mov x21, 456
-mov x22, 324
+add x21, x21, 48
 bl DrawPixel
 
+movz x10, 0x9999, lsl 00 // Set color in grey
+movk x10, 0x0099, lsl 16
+sub x3, x21, 36
+add x4, x22, 0
+add x5, x21, 0
+add x6, x22, 12
+bl DrawSquare
+
 //4th leg
+movz x10, 0x0000, lsl 00 // Set color in black
+movk x10, 0x0000, lsl 16
 mov x21, 480
 mov x22, 324
 bl DrawPixel
@@ -218,41 +271,16 @@ bl DrawPixel
 add x21, x21, 12
 sub x22, x22, 12
 bl DrawPixel
-// END BORDES PATAS
 
-//Parte gris
-//1st leg
 movz x10, 0x9999, lsl 00 // Set color in grey
 movk x10, 0x0099, lsl 16
-mov x3, 228
-mov x4, 312
-mov x5, 252
-mov x6, 336
-bl DrawSquare
-mov x21, 252
-mov x22, 312
+sub x21, x21, 12
+bl DrawPixel
+sub x21, x21, 12
 bl DrawPixel
 
-//2nd leg
-mov x21, 312
-mov x22, 324
-bl DrawPixel
-add x21, x21, 12
-bl DrawPixel
+// END PATAS
 
-//3rd leg
-mov x3, 420
-mov x4, 324
-mov x5, 456
-mov x6, 336
-bl DrawSquare
-
-//4th leg
-mov x3, 492
-mov x4, 324
-mov x5, 516
-mov x6, 336
-bl DrawSquare
 
 // Borde negro cola
 movz x10, 0x0000, lsl 00 // Set color in black
@@ -294,7 +322,7 @@ bl DrawSquare
 movz x10, 0x9999, lsl 00 // Set color in grey
 movk x10, 0x0099, lsl 16
 
-bl DrawPixel
+bl DrawPixel // Este draw pixel lo ejecuto asi sin setear argumentos porque en realidad estan en la linea anterior
 add x21, x21, 12
 bl DrawPixel
 add x22, x22, 12
@@ -319,218 +347,149 @@ movz x10, 0x268c, lsl 00
 movk x10, 0x00fd, lsl 16
 bl DrawPixel
 
-mov x21, 312
-mov x22, 216
+add x21, x21, 12
+add x22, x22, 60
 bl DrawPixel
-
-mov x21, 348
-mov x22, 264
+add x21, x21, 36
+add x22, x22, 48
 bl DrawPixel
-
-mov x21, 348
-mov x22, 192
+sub x22,x22,72
 bl DrawPixel
-
-mov x21, 360
-mov x22, 144
+add x21, x21, 12
+sub x22, x22, 48
 bl DrawPixel
-
-mov x21, 396
-mov x22, 144
+add x21, x21, 48
 bl DrawPixel
-
-mov x21, 444
-mov x22, 168
+add x21, x21, 48
+add x22, x22, 24
 bl DrawPixel
 // END CHISPAS
-
-
-
-
 
 Cabeza: // TODO: Terminar
 
 movz x10, 0x0000, lsl 00 // Set color in black
 movk x10, 0x0000, lsl 16
 
-mov x21, 396
-mov x22, 168
-bl DrawPixel
-
-mov x21, 408
-mov x22, 168
-bl DrawPixel
-
-mov x21, 420
-mov x22, 180
-bl DrawPixel
-
-mov x21, 432
-mov x22, 180
-bl DrawPixel
-
-mov x21, 444
-mov x22, 192
-bl DrawPixel
-
-mov x21, 456
-mov x22, 192
-bl DrawPixel
-
-mov x21, 456
-mov x22, 204
-bl DrawPixel
-
-mov x21, 468
-mov x22, 204
-bl DrawPixel
-
-mov x21, 480
-mov x22, 204
-bl DrawPixel
-
-mov x21, 492
-mov x22, 204
-bl DrawPixel
-
-mov x21, 504
-mov x22, 192
-bl DrawPixel
-
-mov x21, 516
-mov x22, 180
-bl DrawPixel
-
-mov x21, 528
-mov x22, 168
-bl DrawPixel
-
-mov x21, 540
-mov x22, 168
-bl DrawPixel
-
-mov x3, 384
-mov x4, 180
-mov x5, 396
-mov x6, 228
+mov x3, 396
+mov x4, 168
+add x5, x3,24
+add x6, x4,12
 bl DrawSquare
-
-mov x3, 372
-mov x4, 228
-mov x5, 384
-mov x6, 288
+mov x3, x5
+mov x4, x6
+add x5, x3,24
+add x6, x4,12
 bl DrawSquare
-
-mov x3, 552
-mov x4, 180
-mov x5, 564
-mov x6, 228
+mov x3, x5
+mov x4, x6
+add x5, x3,24
+add x6, x4,12
 bl DrawSquare
-
-mov x3, 564
-mov x4, 228
-mov x5, 576
-mov x6, 288
+add x3, x3, 12
+add x4, x4, 12
+add x5, x3, 48
+add x6, x4, 12
 bl DrawSquare
-
-mov x21, 384
-mov x22, 288
+mov x21, x5
+sub x22, x6, 24
 bl DrawPixel
-
-mov x21, 396
-mov x22, 300
+add x21, x21, 12
+sub x22, x22, 12
 bl DrawPixel
-
-mov x21, 552
-mov x22, 288
-bl DrawPixel
-
-mov x21, 540
-mov x22, 300
-bl DrawPixel
-
-mov x3, 492
-mov x4, 300
-mov x5, 528
-mov x6, 312
+add x3, x21, 12
+sub x4, x22, 12
+add x5, x3, 24
+add x6, x4, 12
 bl DrawSquare
-
-mov x3, 492
-mov x4, 312
-mov x5, 540
-mov x6, 324
+add x3, x3, 24
+add x4, x4, 12
+add x5, x3, 12
+add x6, x4, 120
 bl DrawSquare
-
+add x3, x3, 12
+add x4, x4, 48
+add x5, x3, 12
+add x6, x4, 60
+bl DrawSquare
+sub x21, x5, 36
+add x22, x6, 12
+bl DrawPixel
+sub x3, x21, 132
+add x4, x22, 12
+add x5, x3, 132
+add x6, x4, 12
+bl DrawSquare
+sub x21, x3, 12
+sub x22, x4, 12
+bl DrawPixel
+sub x3, x21, 12
+sub x4, x22, 120
+add x5, x3, 12
+add x6, x4, 120
+bl DrawSquare
+sub x3, x3, 12
+add x4, x4, 48
+add x5, x3, 12
+add x6, x4, 60
+bl DrawSquare
 //Gris
 movz x10, 0xD5D6, lsl 00 // Set color in grey
 movk x10, 0x00D8, lsl 16
-
-mov x3, 384
-mov x4, 228
-mov x5, 564
-mov x6, 288
+add x3 ,x3, 12
+add x5 ,x3, 180
+add x6, x4, 60
 bl DrawSquare
-
-mov x3, 396
-mov x4, 216
-mov x5, 552
-mov x6, 264
+add x3, x3, 12
+sub x4, x4, 48
+add x5, x3, 12
+add x6, x4, 120
 bl DrawSquare
-
-mov x3, 396
-mov x4, 288
-mov x5, 552
-mov x6, 300
+add x3, x3, 12
+add x5, x3, 12
+add x6, x4, 132
 bl DrawSquare
-
-mov x3, 408
-mov x4, 300
-mov x5, 540
-mov x6, 312
+add x3, x3, 12
+add x4, x4, 12
+add x5, x3, 24
+add x6, x4, 120
 bl DrawSquare
-
-mov x3, 396
-mov x4, 204
-mov x5, 456
-mov x6, 216
+add x3, x3, 12
+add x4, x4, 12
+add x5, x3, 24
+add x6, x4, 108
 bl DrawSquare
-
-mov x3, 396
-mov x4, 192
-mov x5, 444
-mov x6, 204
+add x3, x3, 12
+add x4, x4, 12
+add x5, x3, 60
+add x6, x4, 96
 bl DrawSquare
-
-mov x3, 396
-mov x4, 180
-mov x5, 420
-mov x6, 192
+add x3, x3, 60
+sub x4, x4, 12
+add x5, x3, 12
+add x6, x4, 108
 bl DrawSquare
-
-mov x3, 504
-mov x4, 204
-mov x5, 552
-mov x6, 216
+add x3, x3, 12
+sub x4, x4, 12
+add x5, x3, 12
+add x6, x4, 120
 bl DrawSquare
-
-mov x3, 516
-mov x4, 192
-mov x5, 552
-mov x6, 204
+add x3, x3, 12
+sub x4, x4, 12
+add x5, x3, 12
+add x6, x4, 132
 bl DrawSquare
-
-mov x3, 528
-mov x4, 180
-mov x5, 552
-mov x6, 192
+add x3, x3, 12
+add x5, x3, 12
+add x6, x4, 120
 bl DrawSquare
 
 //Boca y ojos
 movz x10, 0x0000, lsl 00 // Set color in black
 movk x10, 0x0000, lsl 16
 
-mov x21, 444
-mov x22, 276
+sub x21, x3
+//mov x21, 444
+//mov x22, 276
 bl DrawPixel
 
 mov x21, 480
@@ -580,13 +539,13 @@ bl DrawPixel
 
 movz x10, 0x9896, lsl 00 // color mejillas #FD9896
 movk x10, 0x00fd, lsl 16
-mov x26, 10 // RADIO DEL CIRCULO 
+mov x26, 10 // RADIO DEL CIRCULO
 mov x24,90// coordenada x del centro del circulo teniendo en cuenta un eje cartesiano con el (0,0) en la esquina inferior derecha
 mov x25,206 // coordenada y  "" ..
 bl DrawCircle
 
-mov x26, 10 // RADIO DEL CIRCULO 
-mov x24,230 // 
+mov x26, 10 // RADIO DEL CIRCULO
+mov x24,230 //
 mov x25,206 //
 bl DrawCircle
 
@@ -766,5 +725,5 @@ br lr
 
 end:
 
-InfLoop: 
+InfLoop:
 b InfLoop
