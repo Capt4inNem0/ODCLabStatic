@@ -10,9 +10,8 @@ main:
 // X0 contiene la direccion base del framebuffer
 mov x20, x0 // Save framebuffer base address to x20
 
-movz x10, 0xffff, lsl 00 // GENERAL
+movz x10, 0xffff, lsl 00 // Direccion de memoria que contiene el color con el que se pinta
 movk x10, 0xffff, lsl 16
-// END COLORES
 
 // FONDO
 bl DrawFondo
@@ -64,8 +63,8 @@ bl DrawCircle
 
 // END STARS
 
-// BODY
-// BordesCuerpo:
+BODY: // Dado dos puntos (x3,x4) y (x5,x6) dibuja el cuerpo con ese pixel como esquina superior izquierda
+// Bordes negros del cuerpo
 mov w10,WZR
 mov x3,264 // x
 mov x4,96 // y
@@ -84,10 +83,9 @@ add x4, x4, 12
 add x5, x5, 12
 sub x6, x6, 12
 bl DrawSquare
+// END Bordes negros del cuerpo
 
-// END BORDESCUERPO
-
-// BREAD
+// Pan
 movz x10, 0xcb98, lsl 00 //Masa: 0xfecb98
 movk x10, 0x00fe, lsl 16
 
@@ -103,9 +101,9 @@ add x5, x5, 12
 sub x6, x6, 12
 bl DrawSquare
 
-// END BREAD
+// END Pan
 
-// CREMA: // Dibuja la crema rosa del cuerpo del gato
+// Dibuja la crema rosa del cuerpo del gato
 movz x10, 0x99f7, lsl 00 //crema: 0xf399f7
 movk x10, 0x00f3, lsl 16
 
@@ -126,13 +124,10 @@ sub x4, x4, 12
 sub x5, x5, 12
 add x6, x6, 12
 bl DrawSquare
-
-// END CREMA
-
+// END Crema rosa
 // END BODY
 
-
-Arcoiris:
+Arcoiris: // Dado un punto (x22,x21) dibuja un arcoiris con ese punto como esquina superior derecha
 mov x22,192
 mov x21,132
 bl Bandera
@@ -154,6 +149,168 @@ sub x21,x21,12 // -12
 bl Bandera
 // END ARCOIRIS
 
+//Patas
+// Bordes Patas
+movz x10, 0x0000, lsl 00 // Set color in black
+movk x10, 0x0000, lsl 16
+mov x21, 228
+mov x22, 300
+bl DrawPixel
+sub x21, x21, 12
+add x22, x22, 12
+bl DrawPixel
+add x3, x21, XZR //mov x3, 216
+add x4, x22, 12 //mov x4, 324
+add x5, x21, 12//mov x5, 228
+add x6, x22, 24//mov x6, 348
+bl DrawSquare
+//add x3, x21, XZR //mov x3, 216
+//add x4, x22, 12//mov x4, 336
+mov x5, 264
+mov x6, 348
+bl DrawSquare
+mov x21, 252
+mov x22, 324
+bl DrawPixel
+add x21, x21, 12
+bl DrawPixel
+
+//2nd leg
+mov x21, 300
+mov x22, 324
+bl DrawPixel
+add x22, x22, 12
+bl DrawPixel
+add x21, x21, 12
+bl DrawPixel
+add x21, x21, 12
+bl DrawPixel
+add x21, x21, 12
+sub x22, x22, 12
+bl DrawPixel
+
+//3rd leg
+mov x21, 408
+mov x22, 324
+bl DrawPixel
+//mov x3, x21
+//add x4, x22, 12
+//add x5, x21, 36
+//add x6, x22, 12
+mov x3, 420
+mov x4, 336
+mov x5, 468
+mov x6, 348
+bl DrawSquare
+mov x21, 456
+mov x22, 324
+bl DrawPixel
+
+//4th leg
+mov x21, 480
+mov x22, 324
+bl DrawPixel
+add x21, x21, 12
+add x22, x22, 12
+bl DrawPixel
+add x21, x21, 12
+bl DrawPixel
+add x21, x21, 12
+sub x22, x22, 12
+bl DrawPixel
+// END BORDES PATAS
+
+//Parte gris
+//1st leg
+movz x10, 0x9999, lsl 00 // Set color in grey
+movk x10, 0x0099, lsl 16
+mov x3, 228
+mov x4, 312
+mov x5, 252
+mov x6, 336
+bl DrawSquare
+mov x21, 252
+mov x22, 312
+bl DrawPixel
+
+//2nd leg
+mov x21, 312
+mov x22, 324
+bl DrawPixel
+add x21, x21, 12
+bl DrawPixel
+
+//3rd leg
+mov x3, 420
+mov x4, 324
+mov x5, 456
+mov x6, 336
+bl DrawSquare
+
+//4th leg
+mov x3, 492
+mov x4, 324
+mov x5, 516
+mov x6, 336
+bl DrawSquare
+
+// Borde negro cola
+movz x10, 0x0000, lsl 00 // Set color in black
+movk x10, 0x0000, lsl 16
+
+mov x3, 168  //Comienzo de la cola
+mov x4, 192
+add x21,x3,12 // x21 y x22 se setean aca para la parte gris
+add x22,x4,12
+add x5, x3,48
+add x6, x4,36
+bl DrawSquare
+
+add x3, x3, 12
+add x4, x4, 12
+add x5, x3,48
+add x6, x4,36
+bl DrawSquare
+
+add x3, x3, 12
+add x4, x4, 12
+add x5, x3,48
+add x6, x4,36
+bl DrawSquare
+
+add x3, x3, 12
+add x4, x4, 12
+add x5, x3,48
+add x6, x4,36
+bl DrawSquare
+
+add x3,x3, 12
+add x4,x4, 12
+add x5, x3,36
+add x6, x4,36
+bl DrawSquare
+
+//Parte gris
+movz x10, 0x9999, lsl 00 // Set color in grey
+movk x10, 0x0099, lsl 16
+
+bl DrawPixel
+add x21, x21, 12
+bl DrawPixel
+add x22, x22, 12
+bl DrawPixel
+add x21, x21, 12
+bl DrawPixel
+add x22, x22, 12
+bl DrawPixel
+add x21, x21, 12
+bl DrawPixel
+add x22, x22, 12
+bl DrawPixel
+add x21, x21, 12
+bl DrawPixel
+add x22, x22, 12
+bl DrawPixel
 
 Chispas: // Dibuja las chispas
 mov x21, 300
@@ -401,6 +558,10 @@ mov x4, 240
 mov x5, 456
 mov x6, 264
 bl DrawSquare
+
+mov x21, 492   //Nariz
+mov x22, 252
+bl DrawPixel
 
 movz x10, 0xFFFF, lsl 00 // Set color in white
 movk x10, 0x00FF, lsl 16
