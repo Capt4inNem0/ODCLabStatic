@@ -138,7 +138,7 @@ bl DrawCircle
 mov x21, 228
 mov x22, 300
 bl pata1
-mov x21, 312
+mov x21, 300
 mov x22, 324
 bl pata2
 mov x21, 408
@@ -185,7 +185,7 @@ mov x24,626 // (x,y) centro desde esquina inferior derecha (0,0)
 mov x25,35 //
 bl DrawCircle
 
-mov x26, 12 // RADIO DEL CIRCULO
+mov x26, 52 // RADIO DEL CIRCULO
 mov x24,182 // (x,y) centro desde esquina inferior derecha (0,0)
 mov x25,300 //
 bl DrawCircle
@@ -215,11 +215,11 @@ bl DrawCircle
 mov x21, 228
 mov x22, 300
 bl pata1
-mov x21, 300
-mov x22, 324
+mov x21, 312
+mov x22, 336
 bl pata2
-mov x21, 408
-mov x22, 324
+mov x21, 420
+mov x22, 336
 bl pata3
 mov x21, 480
 mov x22, 324
@@ -251,7 +251,7 @@ mov x24,479 // coordenada x del centro del circulo teniendo en cuenta un eje car
 mov x25,440 // coordenada y  "" ..
 bl DrawCircle
 
-mov x26, 36 // RADIO DEL CIRCULO
+mov x26, 30 // RADIO DEL CIRCULO
 mov x24,539 // (x,y)  centro desde esquina inferior derecha (0,0)
 mov x25,70 //
 bl DrawCircle
@@ -261,7 +261,7 @@ mov x24,39 // (x,y) centro desde esquina inferior derecha (0,0)
 mov x25,35 //
 bl DrawCircle
 
-mov x26, 18 // RADIO DEL CIRCULO
+mov x26, 46 // RADIO DEL CIRCULO
 mov x24,235 // (x,y) centro desde esquina inferior derecha (0,0)
 mov x25,300 //
 bl DrawCircle
@@ -291,7 +291,7 @@ mov x21, 228
 mov x22, 300
 bl pata1
 mov x21, 300
-mov x22, 324
+mov x22, 336
 bl pata2
 mov x21, 408
 mov x22, 324
@@ -330,7 +330,7 @@ mov x26, 32 // RADIO DEL CIRCULO
 mov x24,92 // (x,y) centro desde esquina inferior derecha (0,0)
 mov x25,35 //
 bl DrawCircle
-mov x26, 64 // RADIO DEL CIRCULO
+mov x26, 40 // RADIO DEL CIRCULO
 mov x24,288 // (x,y) centro desde esquina inferior derecha (0,0)
 mov x25,300 //
 bl DrawCircle
@@ -355,8 +355,8 @@ bl DrawCircle
 mov x21, 228
 mov x22, 300
 bl pata1
-mov x21, 300
-mov x22, 324
+mov x21, 288
+mov x22, 336
 bl pata2
 mov x21, 408
 mov x22, 324
@@ -398,7 +398,7 @@ mov x26, 38 // RADIO DEL CIRCULO
 mov x24,145 // (x,y) centro desde esquina inferior derecha (0,0)
 mov x25,35 //
 bl DrawCircle
-mov x26, 58 // RADIO DEL CIRCULO
+mov x26, 34 // RADIO DEL CIRCULO
 mov x24,341 // (x,y) centro desde esquina inferior derecha (0,0)
 mov x25,300 //
 bl DrawCircle
@@ -423,8 +423,8 @@ bl DrawCircle
 mov x21, 228
 mov x22, 300
 bl pata1
-mov x21, 300
-mov x22, 324
+mov x21, 288
+mov x22, 336
 bl pata2
 mov x21, 408
 mov x22, 324
@@ -478,7 +478,7 @@ mov x24, 394 // (x,y) centro desde esquina inferior derecha (0,0)
 mov x25, 300 //
 bl DrawCircle
 
-mov x26, 28 // RADIO DEL CIRCULO
+mov x26, 60 // RADIO DEL CIRCULO
 mov x24,258 // (x,y) centro desde esquina inferior derecha (0,0)
 mov x25,128 //
 bl DrawCircle
@@ -502,7 +502,7 @@ bl DrawCircle
 mov x21, 228
 mov x22, 300
 bl pata1
-mov x21, 300
+mov x21, 312
 mov x22, 324
 bl pata2
 mov x21, 408
@@ -553,7 +553,7 @@ mov x24, 251 // (x,y) centro desde esquina inferior derecha (0,0)
 mov x25,35 //
 bl DrawCircle
 
-mov x26, 34 // RADIO DEL CIRCULO
+mov x26, 54 // RADIO DEL CIRCULO
 mov x24, 447 // (x,y) centro desde esquina inferior derecha (0,0)
 mov x25, 300 //
 bl DrawCircle
@@ -614,27 +614,27 @@ bl DrawFondo
 
 movz x10, 0xffff, lsl 00 // color BLANCO
 movk x10, 0xffff, lsl 16
-mov x26, 48 // RADIO DEL CIRCULO
+mov x26, 54 // RADIO DEL CIRCULO
 mov x24,104 // coordenada x del centro del circulo teniendo en cuenta un eje cartesiano con el (0,0) en la esquina inferior derecha
 mov x25,440 // coordenada y  "" ..
 bl DrawCircle
 
-mov x26, 54 // RADIO DEL CIRCULO
+mov x26, 60 // RADIO DEL CIRCULO
 mov x24,164 // (x,y)  centro desde esquina inferior derecha (0,0)
 mov x25,70 //
 bl DrawCircle
 
-mov x26, 50 // RADIO DEL CIRCULO
+mov x26, 56 // RADIO DEL CIRCULO
 mov x24, 304 // (x,y) centro desde esquina inferior derecha (0,0)
 mov x25,35 //
 bl DrawCircle
 
-mov x26, 34 // RADIO DEL CIRCULO
+mov x26, 16 // RADIO DEL CIRCULO
 mov x24, 500 // (x,y) centro desde esquina inferior derecha (0,0)
 mov x25, 300 //
 bl DrawCircle
 
-mov x26, 34 // RADIO DEL CIRCULO
+mov x26, 48 // RADIO DEL CIRCULO
 mov x24,364 // (x,y) centro desde esquina inferior derecha (0,0)
 mov x25,128 //
 bl DrawCircle
@@ -691,27 +691,27 @@ bl DrawFondo
 
 movz x10, 0xffff, lsl 00 // color BLANCO
 movk x10, 0xffff, lsl 16
-mov x26, 48 // RADIO DEL CIRCULO
+mov x26, 60 // RADIO DEL CIRCULO
 mov x24,157 // coordenada x del centro del circulo teniendo en cuenta un eje cartesiano con el (0,0) en la esquina inferior derecha
 mov x25,440 // coordenada y  "" ..
 bl DrawCircle
 
-mov x26, 54 // RADIO DEL CIRCULO
+mov x26, 62 // RADIO DEL CIRCULO
 mov x24,217 // (x,y)  centro desde esquina inferior derecha (0,0)
 mov x25,70 //
 bl DrawCircle
 
-mov x26, 50 // RADIO DEL CIRCULO
+mov x26, 62 // RADIO DEL CIRCULO
 mov x24, 357 // (x,y) centro desde esquina inferior derecha (0,0)
 mov x25,35 //
 bl DrawCircle
 
-mov x26, 34 // RADIO DEL CIRCULO
+mov x26, 10 // RADIO DEL CIRCULO
 mov x24, 553 // (x,y) centro desde esquina inferior derecha (0,0)
 mov x25, 300 //
 bl DrawCircle
 
-mov x26, 34 // RADIO DEL CIRCULO
+mov x26, 42 // RADIO DEL CIRCULO
 mov x24,417 // (x,y) centro desde esquina inferior derecha (0,0)
 mov x25,128 //
 bl DrawCircle
@@ -769,27 +769,27 @@ bl DrawFondo
 
 movz x10, 0xffff, lsl 00 // color BLANCO
 movk x10, 0xffff, lsl 16
-mov x26, 48 // RADIO DEL CIRCULO
+mov x26, 62 // RADIO DEL CIRCULO
 mov x24,210 // coordenada x del centro del circulo teniendo en cuenta un eje cartesiano con el (0,0) en la esquina inferior derecha
 mov x25,440 // coordenada y  "" ..
 bl DrawCircle
 
-mov x26, 54 // RADIO DEL CIRCULO
+mov x26, 56 // RADIO DEL CIRCULO
 mov x24,270 // (x,y)  centro desde esquina inferior derecha (0,0)
 mov x25,70 //
 bl DrawCircle
 
-mov x26, 50 // RADIO DEL CIRCULO
+mov x26, 60 // RADIO DEL CIRCULO
 mov x24, 410 // (x,y) centro desde esquina inferior derecha (0,0)
 mov x25,35 //
 bl DrawCircle
 
-mov x26, 34 // RADIO DEL CIRCULO
+mov x26, 4 // RADIO DEL CIRCULO
 mov x24, 606 // (x,y) centro desde esquina inferior derecha (0,0)
 mov x25, 300 //
 bl DrawCircle
 
-mov x26, 34 // RADIO DEL CIRCULO
+mov x26, 36 // RADIO DEL CIRCULO
 mov x24,470 // (x,y) centro desde esquina inferior derecha (0,0)
 mov x25,128 //
 bl DrawCircle
@@ -848,43 +848,43 @@ bl DrawFondo
 
 movz x10, 0xffff, lsl 00 // color BLANCO
 movk x10, 0xffff, lsl 16
-mov x26, 48 // RADIO DEL CIRCULO
-mov x24,210 // coordenada x del centro del circulo teniendo en cuenta un eje cartesiano con el (0,0) en la esquina inferior derecha
+mov x26, 56 // RADIO DEL CIRCULO
+mov x24,263 // coordenada x del centro del circulo teniendo en cuenta un eje cartesiano con el (0,0) en la esquina inferior derecha
 mov x25,440 // coordenada y  "" ..
 bl DrawCircle
 
-mov x26, 54 // RADIO DEL CIRCULO
-mov x24,270 // (x,y)  centro desde esquina inferior derecha (0,0)
+mov x26, 50 // RADIO DEL CIRCULO
+mov x24,323 // (x,y)  centro desde esquina inferior derecha (0,0)
 mov x25,70 //
 bl DrawCircle
 
-mov x26, 50 // RADIO DEL CIRCULO
-mov x24, 410 // (x,y) centro desde esquina inferior derecha (0,0)
+mov x26, 54 // RADIO DEL CIRCULO
+mov x24, 463 // (x,y) centro desde esquina inferior derecha (0,0)
 mov x25,35 //
 bl DrawCircle
 
-mov x26, 34 // RADIO DEL CIRCULO
-mov x24, 606 // (x,y) centro desde esquina inferior derecha (0,0)
+mov x26, 2 // RADIO DEL CIRCULO
+mov x24, 19 // (x,y) centro desde esquina inferior derecha (0,0)
 mov x25, 300 //
 bl DrawCircle
 
-mov x26, 34 // RADIO DEL CIRCULO
-mov x24,470 // (x,y) centro desde esquina inferior derecha (0,0)
+mov x26, 30 // RADIO DEL CIRCULO
+mov x24,523 // (x,y) centro desde esquina inferior derecha (0,0)
 mov x25,128 //
 bl DrawCircle
 
 mov x26, 34 // RADIO DEL CIRCULO
-mov x24,370 // (x,y) centro desde esquina inferior derecha (0,0)
+mov x24,423 // (x,y) centro desde esquina inferior derecha (0,0)
 mov x25,380 //
 bl DrawCircle
 
 mov x26, 34 // RADIO DEL CIRCULO
-mov x24,589 // (x,y) centro desde esquina inferior derecha (0,0)
+mov x24,2 // (x,y) centro desde esquina inferior derecha (0,0)
 mov x25,460 //
 bl DrawCircle
 
 mov x26, 34 // RADIO DEL CIRCULO
-mov x24,630 // (x,y) centro desde esquina inferior derecha (0,0)
+mov x24,43 // (x,y) centro desde esquina inferior derecha (0,0)
 mov x25,16 //
 bl DrawCircle
 
@@ -1667,8 +1667,8 @@ pata3:
 pata2:
     mov x23,x30
     //2nd leg
-    movz x10, 0x0000, lsl 00 // Set color in black
-    movk x10, 0x0000, lsl 16
+    movz x10, 0xffff, lsl 00 // Set color in black
+    movk x10, 0x00ff, lsl 16
     bl DrawPixel
     add x22, x22, 12
     bl DrawPixel
