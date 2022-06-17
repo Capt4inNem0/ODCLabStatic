@@ -11,37 +11,32 @@ mov x20, x0 // Save framebuffer base address to x20
 mov x18, xzr
 mov x19, 0
 mov x11, -1
-movz x10, 0xfdff  // Direccion de memoria que contiene el color con el que se pinta
-movk x10, 0x00b4, lsl 16
+//movz x10, 0xfdff  // Direccion de memoria que contiene el color con el que se pinta
+//movk x10, 0x00b4, lsl 16
+movz x10, 0x77ff
 
 restart:
-mov x13, 0
-mov x21, 300
-movz w13, 300, lsl 16
-lsl w13, w13, 16
-movk w13, 324, lsl 0
-
 add x11, x11, 1 // contador sobre si cambia el rango de colores del degradé
-movz x17, 0x0000 // x17 nos pauta de que color a cual vamos, en este caso cel-cel claro
-movk x17, 0x0001, lsl 16 //
-cbz x11, skippp
-
-movz x19, 0x0000
-movk x19, 0x0001, lsl 16
-movz x17, 0x0000 // x17 nos pauta de que color a cual vamos, en este caso cel-cel claro
-movk x17, 0x0001, lsl 16 //
-cmp x11, 2
-b.ne skippp
-movz x19, 0x0000
-movk x19, 0x0001, lsl 16
-movz x17, 0x0000 // x17 nos pauta de que color a cual vamos, en este caso fondo-cel
-movk x17, 0x0001, lsl 16 //
-cmp x11, 3
-b.ne skippp
-movz x19, 0x0000
-movk x19, 0x0001, lsl 16
-movz x17, 0x0000 // x17 nos pauta de que color a cual vamos, en este caso negro-fondo claro
-movk x17, 0x0001, lsl 16 //
+movz x17, 0x0200 // x17 nos pauta de que color a cual vamos, en este caso cel-cel claro
+movk x17, 0x0000, lsl 16 //
+//cbz x11, skippp
+movz x19, 0x0300
+movk x19, 0x0000, lsl 16
+add x10, x10, x19
+//movz x17, 0x0000 // x17 nos pauta de que color a cual vamos, en este caso cel-cel claro
+//movk x17, 0x0001, lsl 16 //
+//cmp x11, 2
+//b.ne skippp
+//movz x19, 0x0000
+//movk x19, 0x0001, lsl 16
+//movz x17, 0x0003 // x17 nos pauta de que color a cual vamos, en este caso fondo-cel
+//movk x17, 0x0403, lsl 16 //
+//cmp x11, 3
+//b.ne skippp
+//movz x19, 0x0000
+//movk x19, 0x0001, lsl 16
+//movz x17, 0x0000 // x17 nos pauta de que color a cual vamos, en este caso negro-fondo claro
+//movk x17, 0x0001, lsl 16 //
 skippp:
 cbz x18, skipp
 mov x10, x18 // pone el ultimo color del frame 12 en el x10 para el frame "13"
@@ -56,7 +51,7 @@ add x10, x10, x19 // resta 5 al ultimo color
 //movk x10, 0xffff, lsl 16
 mov x18, x10
 
-//add x10, x10, x17 //movz x17, 0x0000, lsl 00 //
+//sub x10, x10, x17 //movz x17, 0x0000, lsl 00 //
 //movz x17, 0x0001, lsl 16 // Setea un color para que vaya aumentando el rojo y el azul
 
 bl DrawFondo
@@ -626,7 +621,7 @@ DrawFondo:
     //movk x17, 0x0003, lsl 16 // Setea un color para que vaya aumentando el rojo y el azul
     //0x00010000
     //  A_R_G_B_
-    add w10,w10,w17 // Suma uno al color AZUL y ROJO
+    add w10,w10,w17 // Suma colores especificados en w17
     mov x21,0   // RESETEA EL CONTADOR (Aca es donde reseteamos x21 por eso no importa usarlo como color)
     skipResetBlue: // Continua el ciclo de 9
     add x21,x21,1 // Suma 1 al contador
@@ -636,7 +631,7 @@ DrawFondo:
     br lr
 
 delay1:
-    movz x3 , 0x1000, lsl 16 // 0x0200 ideal time
+    movz x3 , 0x0200, lsl 16 // 0x0200 ideal time
     l1:
     sub x3, x3, 1
     cbnz x3, l1
@@ -1184,8 +1179,9 @@ DrawPatas: // Toma un punto X,Y en x13
     lsr w21, w13, 16
     mov w22, w13
     movk x22, 0x0000, lsl 16
+    add x21, x21, 12
     bl pata1
-    add x21,x21,72
+    add x21,x21,36
     add x22,x22,24
     bl pata2
     add x21, x21, 84
@@ -1573,5 +1569,15 @@ br lr
 //r1-r2: 180-236: -56; r1-r2/480: -0.11666666; 9*(r1-r2)/480: -1.05; redondeo: -1
 //g1-g2: 253-251: 2; g1-g2/480: 1/240: 0.004166666; 9*(g1-g2)/480: 0.0375; redondeo: 0
 //b1-b2: 255-252: 3; b1-b2/480: 0.00625; 9*(b1-b2)/480: 0.05626; redondeo: 0
+
+//00003366 - 00b4fdff
+//r1-r2: -180; r1-r2/480: -0.375; 9*(r1-r2)/480: -3.375; redondeo: -3
+//g1-g2: 51-253: -202; g1-g2/480:  -0.420; 9*(g1-g2)/480: -3.7875; redondeo: -4
+//b1-b2: 102-255: -153; b1-b2/480: -0.31875; 9*(b1-b2)/480: -2.86875; redondeo: -3
+
+
+
+
+
 
 
