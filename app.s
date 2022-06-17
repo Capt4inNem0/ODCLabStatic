@@ -7,16 +7,26 @@
 main:
 mov x20, x0 // Save framebuffer base address to x20
 
-movz x18, 0x0000, lsl 48
-mov x10, -1 // Direccion de memoria que contiene el color con el que se pinta
+//movz x18, 0x0000, lsl 48
+mov x18, xzr
+movz x10, 0x3371  // Direccion de memoria que contiene el color con el que se pinta
+
+restart:
+mov x19, -5
+cbz x18, skipp
+mov x10, x18 // pone el ultimo color del frame 12 en el x10 para el frame "13"
+//add x10, x10, x19 // resta 5 al ultimo color
+skipp:
 
 // TODO FRAME 1
 frame1:
-movz x10, 0x3366, lsl 00 // Direccion de memoria que contiene el color con el que se pinta
+add x10, x10, x19 // resta 5 al ultimo color
+//add x10, 0x3366, lsl 00 // Direccion de memoria que contiene el color con el que se pinta
 //movk x10, 0xffff, lsl 16
+mov x18, x10
 
 movz x17, 0x0001, lsl 00 // Aca usamos x21 porque de todos modos le vamos a borrar el contenido mas adelante
-movk x17, 0x0003, lsl 16 // Setea un color para que vaya aumentando el rojo y el azul
+//movk x17, 0x0003, lsl 16 // Setea un color para que vaya aumentando el rojo y el azul
 
 bl DrawFondo
 
@@ -53,11 +63,13 @@ bl DrawCabeza
 bl delay1
 
 // TODO FRAME 2
-movz x10, 0x3355, lsl 00 // Direccion de memoria que contiene el color con el que se pinta
+add x10, x18, x19 // resta 5 al ultimo color
+//movz x10, 0x3355, lsl 00 // Direccion de memoria que contiene el color con el que se pinta
 //movk x10, 0xffff, lsl 16
+mov x18, x10
 
 movz x17, 0x0001, lsl 00 // Aca usamos x21 porque de todos modos le vamos a borrar el contenido mas adelante
-movk x17, 0x0003, lsl 16 // Setea un color para que vaya aumentando el rojo y el azul
+//movk x17, 0x0003, lsl 16 // Setea un color para que vaya aumentando el rojo y el azul
 bl DrawFondo
 
 // ESTRELLAS
@@ -77,7 +89,7 @@ bl pata2
 mov x21, 420
 mov x22, 324
 bl pata3
-mov x21, 480
+mov x21, 492
 mov x22, 324
 bl pata4
 
@@ -97,11 +109,13 @@ bl DrawCabeza
 // TODO FIN FRAME 2
 bl delay1
 // TODO FRAME 3
-movz x10, 0x3350, lsl 00 // Direccion de memoria que contiene el color con el que se pinta
+add x10, x18, x19 // resta 5 al ultimo color
+//movz x10, 0x3350, lsl 00 // Direccion de memoria que contiene el color con el que se pinta
 //movk x10, 0xffff, lsl 16
+mov x18, x10
 
 movz x17, 0x0001, lsl 00 // Aca usamos x21 porque de todos modos le vamos a borrar el contenido mas adelante
-movk x17, 0x0003, lsl 16 // Setea un color para que vaya aumentando el rojo y el azul
+//movk x17, 0x0003, lsl 16 // Setea un color para que vaya aumentando el rojo y el azul
 bl DrawFondo
 
 // ESTRELLAS
@@ -119,8 +133,8 @@ bl pata2
 mov x21, 432
 mov x22, 336
 bl pata3
-mov x21, 480
-mov x22, 324
+mov x21, 504
+mov x22, 336
 bl pata4
 mov x3,264 // x
 mov x4,108 // y
@@ -138,11 +152,13 @@ bl DrawCabeza
 // TODO FIN FRAME 3
 bl delay1
 // TODO FRAME 4
-movz x10, 0x3345, lsl 00 // Direccion de memoria que contiene el color con el que se pinta
+add x10, x18, x19 // resta 5 al ultimo color
+//movz x10, 0x3345, lsl 00 // Direccion de memoria que contiene el color con el que se pinta
 //movk x10, 0xffff, lsl 16
+mov x18, x10
 
 movz x17, 0x0001, lsl 00 // Aca usamos x21 porque de todos modos le vamos a borrar el contenido mas adelante
-movk x17, 0x0003, lsl 16 // Setea un color para que vaya aumentando el rojo y el azul
+//movk x17, 0x0003, lsl 16 // Setea un color para que vaya aumentando el rojo y el azul
 bl DrawFondo
 
 // ESTRELLAS
@@ -160,8 +176,8 @@ bl pata2
 mov x21, 420
 mov x22, 336
 bl pata3
-mov x21, 480
-mov x22, 324
+mov x21, 492
+mov x22, 336
 bl pata4
 mov x3,264 // x
 mov x4,108 // y
@@ -178,11 +194,13 @@ bl DrawCabeza
 // TODO FIN FRAME 4
 bl delay1
 // TODO FRAME 5
-movz x10, 0x3340, lsl 00 // Direccion de memoria que contiene el color con el que se pinta
+add x10, x18, x19 // resta 5 al ultimo color
+//movz x10, 0x3340, lsl 00 // Direccion de memoria que contiene el color con el que se pinta
 //movk x10, 0xffff, lsl 16
+mov x18, x10
 
 movz x17, 0x0001, lsl 00 // Aca usamos x21 porque de todos modos le vamos a borrar el contenido mas adelante
-movk x17, 0x0003, lsl 16 // Setea un color para que vaya aumentando el rojo y el azul
+//movk x17, 0x0003, lsl 16 // Setea un color para que vaya aumentando el rojo y el azul
 bl DrawFondo
 // ESTRELLAS
 mov x14, 20 //12
@@ -199,8 +217,8 @@ bl pata2
 mov x21, 396
 mov x22, 336
 bl pata3
-mov x21, 480
-mov x22, 324
+mov x21, 468
+mov x22, 336
 bl pata4
 mov x3,264 // x
 mov x4,108 // y
@@ -219,11 +237,13 @@ bl DrawCabeza
 // TODO FIN FRAME 5
 bl delay1
 // TODO FRAME 6
-movz x10, 0x3335, lsl 00 // Direccion de memoria que contiene el color con el que se pinta
+add x10, x18, x19 // resta 5 al ultimo color
+//movz x10, 0x3335, lsl 00 // Direccion de memoria que contiene el color con el que se pinta
 //movk x10, 0xffff, lsl 16
+mov x18, x10
 
 movz x17, 0x0001, lsl 00 // Aca usamos x21 porque de todos modos le vamos a borrar el contenido mas adelante
-movk x17, 0x0003, lsl 16 // Setea un color para que vaya aumentando el rojo y el azul
+//movk x17, 0x0003, lsl 16 // Setea un color para que vaya aumentando el rojo y el azul
 bl DrawFondo
 
 // ESTRELLAS
@@ -240,8 +260,8 @@ bl pata2
 mov x21, 396
 mov x22, 336
 bl pata3
-mov x21, 480
-mov x22, 324
+mov x21, 468
+mov x22, 336
 bl pata4
 mov x3,264 // x
 mov x4,108 // y
@@ -262,11 +282,13 @@ bl delay1
 // TODO FRAME 7
 
 // FONDO
-movz x10, 0x3330, lsl 00 // Direccion de memoria que contiene el color con el que se pinta
+sub x10, x18, x19 // resta 5 al ultimo color
+//movz x10, 0x3330, lsl 00 // Direccion de memoria que contiene el color con el que se pinta
 //movk x10, 0xffff, lsl 16
+mov x18, x10
 
 movz x17, 0x0001, lsl 00 // Aca usamos x21 porque de todos modos le vamos a borrar el contenido mas adelante
-movk x17, 0x0003, lsl 16 // Setea un color para que vaya aumentando el rojo y el azul
+//movk x17, 0x0003, lsl 16 // Setea un color para que vaya aumentando el rojo y el azul
 bl DrawFondo
 // END FONDO
 
@@ -306,14 +328,16 @@ bl DrawCabeza
 
 bl delay1
 
-// FRAME 8 TODO: RADIO ESTRELLAS
+// TODO FRAME 8
 
 // FONDO
-movz x10, 0x3325, lsl 00 // Direccion de memoria que contiene el color con el que se pinta
+sub x10, x18, x19 // resta 5 al ultimo color
+//movz x10, 0x3325, lsl 00 // Direccion de memoria que contiene el color con el que se pinta
 //movk x10, 0xffff, lsl 16
+mov x18, x10
 
 movz x17, 0x0001, lsl 00 // Aca usamos x21 porque de todos modos le vamos a borrar el contenido mas adelante
-movk x17, 0x0003, lsl 16 // Setea un color para que vaya aumentando el rojo y el azul
+//movk x17, 0x0003, lsl 16 // Setea un color para que vaya aumentando el rojo y el azul
 bl DrawFondo
 // END FONDO
 
@@ -332,7 +356,7 @@ bl pata2
 mov x21, 420
 mov x22, 324
 bl pata3
-mov x21, 480
+mov x21, 492
 mov x22, 324
 bl pata4
 mov x3,264 // x
@@ -354,11 +378,13 @@ bl DrawCabeza
 bl delay1
 
 // TODO FRAME 9
-movz x10, 0x3320, lsl 00 // Direccion de memoria que contiene el color con el que se pinta
+sub x10, x18, x19 // resta 5 al ultimo color
+//movz x10, 0x3320, lsl 00 // Direccion de memoria que contiene el color con el que se pinta
 //movk x10, 0xffff, lsl 16
+mov x18, x10
 
 movz x17, 0x0001, lsl 00 // Aca usamos x21 porque de todos modos le vamos a borrar el contenido mas adelante
-movk x17, 0x0003, lsl 16 // Setea un color para que vaya aumentando el rojo y el azul
+//movk x17, 0x0003, lsl 16 // Setea un color para que vaya aumentando el rojo y el azul
 bl DrawFondo
 // ESTRELLAS
 mov x14, 33 //24
@@ -375,8 +401,8 @@ bl pata2
 mov x21, 432
 mov x22, 336
 bl pata3
-mov x21, 480
-mov x22, 324
+mov x21, 492
+mov x22, 336
 bl pata4
 mov x3,264 // x
 mov x4,108 // y
@@ -394,12 +420,14 @@ bl DrawCabeza
 
 bl delay1
 
-// TODO FRAME 10 TODO: RADIO ESTRELLAS
-movz x10, 0x3315, lsl 00 // Direccion de memoria que contiene el color con el que se pinta
+// TODO FRAME 10
+sub x10, x18, x19 // resta 5 al ultimo color
+//movz x10, 0x3315, lsl 00 // Direccion de memoria que contiene el color con el que se pinta
 //movk x10, 0xffff, lsl 16
+mov x18, x10
 
 movz x17, 0x0001, lsl 00 // Aca usamos x21 porque de todos modos le vamos a borrar el contenido mas adelante
-movk x17, 0x0003, lsl 16 // Setea un color para que vaya aumentando el rojo y el azul
+//movk x17, 0x0003, lsl 16 // Setea un color para que vaya aumentando el rojo y el azul
 bl DrawFondo
 
 // ESTRELLAS
@@ -418,7 +446,7 @@ mov x21, 420
 mov x22, 336
 bl pata3
 mov x21, 480
-mov x22, 324
+mov x22, 336
 bl pata4
 mov x3,264 // x
 mov x4,108 // y
@@ -437,12 +465,14 @@ bl DrawCabeza
 
 bl delay1
 
-// TODO FRAME 11 TODO: MOVER ESTRELLAS
-movz x10, 0x3310, lsl 00 // Direccion de memoria que contiene el color con el que se pinta
+// TODO FRAME 11
+sub x10, x18, x19 // resta 5 al ultimo color
+//movz x10, 0x3310, lsl 00 // Direccion de memoria que contiene el color con el que se pinta
 //movk x10, 0xffff, lsl 16
+mov x18, x10
 
 movz x17, 0x0001, lsl 00 // Aca usamos x21 porque de todos modos le vamos a borrar el contenido mas adelante
-movk x17, 0x0003, lsl 16 // Setea un color para que vaya aumentando el rojo y el azul
+//movk x17, 0x0003, lsl 16 // Setea un color para que vaya aumentando el rojo y el azul
 bl DrawFondo
 
 // ESTRELLAS
@@ -460,8 +490,8 @@ bl pata2
 mov x21, 396
 mov x22, 336
 bl pata3
-mov x21, 480
-mov x22, 324
+mov x21, 468
+mov x22, 336
 bl pata4
 mov x3,264 // x
 mov x4,108 // y
@@ -482,11 +512,14 @@ bl DrawCabeza
 bl delay1
 
 // TODO FRAME 12 TODO: MOVER ESTRELLAS
-movz x10, 0x3305, lsl 00 // Direccion de memoria que contiene el color con el que se pinta
+sub x10, x18, x19 // resta 5 al ultimo color
+//movz x10, 0x3305, lsl 00 // Direccion de memoria que contiene el color con el que se pinta
 //movk x10, 0xffff, lsl 16
 
+mov x18, x10
+
 movz x17, 0x0001, lsl 00 // Aca usamos x21 porque de todos modos le vamos a borrar el contenido mas adelante
-movk x17, 0x0003, lsl 16 // Setea un color para que vaya aumentando el rojo y el azul
+//movk x17, 0x0003, lsl 16 // Setea un color para que vaya aumentando el rojo y el azul
 bl DrawFondo
 
 // ESTRELLAS
@@ -504,8 +537,8 @@ bl pata2
 mov x21, 396
 mov x22, 336
 bl pata3
-mov x21, 480
-mov x22, 324
+mov x21, 468
+mov x22, 336
 bl pata4
 mov x3,264 // x
 mov x4,108 // y
@@ -523,6 +556,7 @@ bl DrawCabeza
 // TODO END FRAME 12
 
 bl delay1
+b restart
 b frame1
 b end
 
@@ -666,7 +700,7 @@ DrawFondo:
     br lr
 
 delay1:
-    movz x3 , 0x0200, lsl 16
+    movz x3 , 0x2000, lsl 16 // 0x0200 ideal time
     l1:
     sub x3, x3, 1
     cbnz x3, l1
@@ -1236,8 +1270,8 @@ pata4: //4th leg
 pata3:
     mov x23,x30
     //3rd leg
-    movz x10, 0xffff, lsl 00 // Set color in black
-    movk x10, 0xffff, lsl 16
+    movz x10, 0x0000, lsl 00 // Set color in black
+    movk x10, 0x0000, lsl 16
     bl DrawPixel
     add x3, x21, 12
     add x4, x22, 12
@@ -1562,3 +1596,22 @@ b.ne again
 returnDrawPicture:
 mov x30, x23
 br lr
+
+// INFORMACION ADICIONAL UTIL
+// COLORES DEL DEGRADE DEL FONDO
+
+//00FFFFFF // 3er color de arriba                         // NEGRO
+//00003366 // 2do color de arriba // 3er color de abajo   // FONDO (AZUL OSCURO)
+//00b4fdff // 1er color de arriba // 2do color de abajo   // CELESTE
+//00ecfbfc // 1er color de abajo                          // CELESTE ClARO
+//A_R_G_B_
+
+//DISTANCIAS ENTRE COLORES (¿QUE SUMAR PARA LLEGAR DE UNO AL OTRO?)
+
+//00b4fdff - 00ecfbfc
+
+//r1-r2: 180-236: -56; r1-r2/480: -0.11666666; 9*(r1-r2)/480: -1.05; redondeo: -1
+//g1-g2: 253-251: 2; g1-g2/480: 1/240: 0.004166666; 9*(g1-g2)/480: 0.0375; redondeo: 0
+//b1-b2:
+
+
