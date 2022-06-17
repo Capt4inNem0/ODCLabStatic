@@ -9,10 +9,32 @@ mov x20, x0 // Save framebuffer base address to x20
 
 //movz x18, 0x0000, lsl 48
 mov x18, xzr
-movz x10, 0x3371  // Direccion de memoria que contiene el color con el que se pinta
+movz x10, 0xfdff  // Direccion de memoria que contiene el color con el que se pinta
+movk x10, 0x00b4, lsl 16
 
 restart:
-mov x19, -5
+mov x13, 0
+mov x21, 300
+movz w13, 300, lsl 16
+lsl w13, w13, 16
+movk w13, 324, lsl 0
+
+mov x19, 0
+mov x11, 0
+movz x17, 0x0000 // x17 nos pauta de que color a cual vamos, en este caso cel-cel claro
+movk x17, 0x0001, lsl 16 //
+cbz x11, skippp
+//movz x17, 0x0000 // x17 nos pauta de que color a cual vamos, en este caso cel-cel claro
+//movk x17, 0x0001, lsl 16 //
+//cmp x11, 2
+//b.ne skipp
+//movz x17, 0x0000 // x17 nos pauta de que color a cual vamos, en este caso fondo-cel
+//movk x17, 0x0001, lsl 16 //
+//cmp x11, 3
+//b.ne skipp
+//movz x17, 0x0000 // x17 nos pauta de que color a cual vamos, en este caso negro-fondo claro
+//movk x17, 0x0001, lsl 16 //
+skippp:
 cbz x18, skipp
 mov x10, x18 // pone el ultimo color del frame 12 en el x10 para el frame "13"
 //add x10, x10, x19 // resta 5 al ultimo color
@@ -25,8 +47,8 @@ add x10, x10, x19 // resta 5 al ultimo color
 //movk x10, 0xffff, lsl 16
 mov x18, x10
 
-movz x17, 0x0001, lsl 00 // Aca usamos x21 porque de todos modos le vamos a borrar el contenido mas adelante
-//movk x17, 0x0003, lsl 16 // Setea un color para que vaya aumentando el rojo y el azul
+//add x10, x10, x17 //movz x17, 0x0000, lsl 00 //
+//movz x17, 0x0001, lsl 16 // Setea un color para que vaya aumentando el rojo y el azul
 
 bl DrawFondo
 
@@ -38,8 +60,9 @@ bl DrawEstrellas
 mov x21, 228
 mov x22, 300
 bl pata1
-mov x21, 300
-mov x22, 324
+
+//mov x21, 300
+//mov x22, 324
 bl pata2
 mov x21, 408
 mov x22, 324
@@ -68,8 +91,8 @@ add x10, x18, x19 // resta 5 al ultimo color
 //movk x10, 0xffff, lsl 16
 mov x18, x10
 
-movz x17, 0x0001, lsl 00 // Aca usamos x21 porque de todos modos le vamos a borrar el contenido mas adelante
-//movk x17, 0x0003, lsl 16 // Setea un color para que vaya aumentando el rojo y el azul
+//add x10, x10, x17 //movz x17, 0x0000, lsl 00 // Aca usamos x21 porque de todos modos le vamos a borrar el contenido mas adelante
+//movk x17, 0x0001, lsl 16 // Setea un color para que vaya aumentando el rojo y el azul
 bl DrawFondo
 
 // ESTRELLAS
@@ -80,7 +103,7 @@ mov x14, 10 //3
 mov x15, 55 //53
 bl DrawEstrellas
 
-mov x21, 228
+mov x21, 240
 mov x22, 300
 bl pata1
 mov x21, 300
@@ -114,8 +137,8 @@ add x10, x18, x19 // resta 5 al ultimo color
 //movk x10, 0xffff, lsl 16
 mov x18, x10
 
-movz x17, 0x0001, lsl 00 // Aca usamos x21 porque de todos modos le vamos a borrar el contenido mas adelante
-//movk x17, 0x0003, lsl 16 // Setea un color para que vaya aumentando el rojo y el azul
+//add x10, x10, x17 //movz x17, 0x0000, lsl 00 // Aca usamos x21 porque de todos modos le vamos a borrar el contenido mas adelante
+//movk x17, 0x0001, lsl 16 // Setea un color para que vaya aumentando el rojo y el azul
 bl DrawFondo
 
 // ESTRELLAS
@@ -124,8 +147,8 @@ mov x15, 108 //106
 bl DrawEstrellas
 // END STARS
 
-mov x21, 228
-mov x22, 300
+mov x21, 252
+mov x22, 312
 bl pata1
 mov x21, 312
 mov x22, 336
@@ -143,7 +166,7 @@ mov x6,336 // Y
 bl DrawBody
 bl Arcoiris2
 mov x3, 168
-mov x4, 192
+mov x4, 204
 bl DrawCola3
 mov x3, 408
 mov x4, 180
@@ -157,8 +180,8 @@ add x10, x18, x19 // resta 5 al ultimo color
 //movk x10, 0xffff, lsl 16
 mov x18, x10
 
-movz x17, 0x0001, lsl 00 // Aca usamos x21 porque de todos modos le vamos a borrar el contenido mas adelante
-//movk x17, 0x0003, lsl 16 // Setea un color para que vaya aumentando el rojo y el azul
+//add x10, x10, x17 //movz x17, 0x0000, lsl 00 // Aca usamos x21 porque de todos modos le vamos a borrar el contenido mas adelante
+//movk x17, 0x0001, lsl 16 // Setea un color para que vaya aumentando el rojo y el azul
 bl DrawFondo
 
 // ESTRELLAS
@@ -167,8 +190,8 @@ mov x15, 161 //159
 bl DrawEstrellas
 // END STARS
 
-mov x21, 228
-mov x22, 300
+mov x21, 240
+mov x22, 312
 bl pata1
 mov x21, 300
 mov x22, 336
@@ -186,7 +209,7 @@ mov x6,336 // Y
 bl DrawBody
 bl Arcoiris1
 mov x3, 168
-mov x4, 192
+mov x4, 204
 bl DrawCola4
 mov x3, 408
 mov x4, 180
@@ -199,8 +222,8 @@ add x10, x18, x19 // resta 5 al ultimo color
 //movk x10, 0xffff, lsl 16
 mov x18, x10
 
-movz x17, 0x0001, lsl 00 // Aca usamos x21 porque de todos modos le vamos a borrar el contenido mas adelante
-//movk x17, 0x0003, lsl 16 // Setea un color para que vaya aumentando el rojo y el azul
+//add x10, x10, x17 //movz x17, 0x0000, lsl 00 // Aca usamos x21 porque de todos modos le vamos a borrar el contenido mas adelante
+//movk x17, 0x0001, lsl 16 // Setea un color para que vaya aumentando el rojo y el azul
 bl DrawFondo
 // ESTRELLAS
 mov x14, 20 //12
@@ -208,7 +231,7 @@ mov x15, 214 //212
 bl DrawEstrellas
 // END STARS
 
-mov x21, 228
+mov x21, 204
 mov x22, 300
 bl pata1
 mov x21, 288
@@ -228,7 +251,7 @@ bl DrawBody
 bl Arcoiris1
 // END PATAS
 mov x3, 168
-mov x4, 192
+mov x4, 204
 bl DrawCola3
 mov x3, 396
 mov x4, 180
@@ -242,8 +265,8 @@ add x10, x18, x19 // resta 5 al ultimo color
 //movk x10, 0xffff, lsl 16
 mov x18, x10
 
-movz x17, 0x0001, lsl 00 // Aca usamos x21 porque de todos modos le vamos a borrar el contenido mas adelante
-//movk x17, 0x0003, lsl 16 // Setea un color para que vaya aumentando el rojo y el azul
+//add x10, x10, x17 //movz x17, 0x0000, lsl 00 // Aca usamos x21 porque de todos modos le vamos a borrar el contenido mas adelante
+//movk x17, 0x0001, lsl 16 // Setea un color para que vaya aumentando el rojo y el azul
 bl DrawFondo
 
 // ESTRELLAS
@@ -251,7 +274,7 @@ mov x14, 24 //15
 mov x15, 267 //265
 bl DrawEstrellas
 // END STARS
-mov x21, 228
+mov x21, 204
 mov x22, 300
 bl pata1
 mov x21, 288
@@ -270,7 +293,7 @@ mov x6,336 // Y
 bl DrawBody
 bl Arcoiris2
 mov x3, 168
-mov x4, 192
+mov x4, 204
 bl DrawCola2
 mov x3, 396
 mov x4, 168
@@ -287,8 +310,8 @@ sub x10, x18, x19 // resta 5 al ultimo color
 //movk x10, 0xffff, lsl 16
 mov x18, x10
 
-movz x17, 0x0001, lsl 00 // Aca usamos x21 porque de todos modos le vamos a borrar el contenido mas adelante
-//movk x17, 0x0003, lsl 16 // Setea un color para que vaya aumentando el rojo y el azul
+//add x10, x10, x17 //movz x17, 0x0000, lsl 00 // Aca usamos x21 porque de todos modos le vamos a borrar el contenido mas adelante
+//movk x17, 0x0001, lsl 16 // Setea un color para que vaya aumentando el rojo y el azul
 bl DrawFondo
 // END FONDO
 
@@ -300,7 +323,7 @@ bl DrawEstrellas
 
 //BODY
 mov x21, 228
-mov x22, 300
+mov x22, 288
 bl pata1
 mov x21, 312
 mov x22, 324
@@ -336,8 +359,8 @@ sub x10, x18, x19 // resta 5 al ultimo color
 //movk x10, 0xffff, lsl 16
 mov x18, x10
 
-movz x17, 0x0001, lsl 00 // Aca usamos x21 porque de todos modos le vamos a borrar el contenido mas adelante
-//movk x17, 0x0003, lsl 16 // Setea un color para que vaya aumentando el rojo y el azul
+//add x10, x10, x17 //movz x17, 0x0000, lsl 00 // Aca usamos x21 porque de todos modos le vamos a borrar el contenido mas adelante
+//movk x17, 0x0001, lsl 16 // Setea un color para que vaya aumentando el rojo y el azul
 bl DrawFondo
 // END FONDO
 
@@ -347,8 +370,8 @@ mov x15, 373 //371
 bl DrawEstrellas
 // END STARS
 
-mov x21, 228
-mov x22, 300
+mov x21, 240
+mov x22, 288
 bl pata1
 mov x21, 312
 mov x22, 324
@@ -383,8 +406,8 @@ sub x10, x18, x19 // resta 5 al ultimo color
 //movk x10, 0xffff, lsl 16
 mov x18, x10
 
-movz x17, 0x0001, lsl 00 // Aca usamos x21 porque de todos modos le vamos a borrar el contenido mas adelante
-//movk x17, 0x0003, lsl 16 // Setea un color para que vaya aumentando el rojo y el azul
+//add x10, x10, x17 //movz x17, 0x0000, lsl 00 // Aca usamos x21 porque de todos modos le vamos a borrar el contenido mas adelante
+//movk x17, 0x0001, lsl 16 // Setea un color para que vaya aumentando el rojo y el azul
 bl DrawFondo
 // ESTRELLAS
 mov x14, 33 //24
@@ -392,8 +415,8 @@ mov x15, 426 //424
 bl DrawEstrellas
 // END STARS
 
-mov x21, 228
-mov x22, 300
+mov x21, 240
+mov x22, 288
 bl pata1
 mov x21, 324
 mov x22, 336
@@ -411,7 +434,7 @@ mov x6,336 // Y
 bl DrawBody
 bl Arcoiris2
 mov x3, 168
-mov x4, 192
+mov x4, 204
 bl DrawCola3
 mov x3, 408
 mov x4, 180
@@ -426,8 +449,8 @@ sub x10, x18, x19 // resta 5 al ultimo color
 //movk x10, 0xffff, lsl 16
 mov x18, x10
 
-movz x17, 0x0001, lsl 00 // Aca usamos x21 porque de todos modos le vamos a borrar el contenido mas adelante
-//movk x17, 0x0003, lsl 16 // Setea un color para que vaya aumentando el rojo y el azul
+//add x10, x10, x17 //movz x17, 0x0000, lsl 00 // Aca usamos x21 porque de todos modos le vamos a borrar el contenido mas adelante
+//movk x17, 0x0001, lsl 16 // Setea un color para que vaya aumentando el rojo y el azul
 bl DrawFondo
 
 // ESTRELLAS
@@ -436,8 +459,8 @@ mov x15, 479 //477
 bl DrawEstrellas
 // END STARS
 
-mov x21, 228
-mov x22, 300
+mov x21, 240
+mov x22, 288
 bl pata1
 mov x21, 312
 mov x22, 336
@@ -455,7 +478,7 @@ mov x6,336 // Y
 bl DrawBody
 bl Arcoiris1
 mov x3, 168
-mov x4, 192
+mov x4, 204
 bl DrawCola4
 mov x3, 408
 mov x4, 180
@@ -471,8 +494,8 @@ sub x10, x18, x19 // resta 5 al ultimo color
 //movk x10, 0xffff, lsl 16
 mov x18, x10
 
-movz x17, 0x0001, lsl 00 // Aca usamos x21 porque de todos modos le vamos a borrar el contenido mas adelante
-//movk x17, 0x0003, lsl 16 // Setea un color para que vaya aumentando el rojo y el azul
+//add x10, x10, x17 //movz x17, 0x0000, lsl 00 // Aca usamos x21 porque de todos modos le vamos a borrar el contenido mas adelante
+//movk x17, 0x0001, lsl 16 // Setea un color para que vaya aumentando el rojo y el azul
 bl DrawFondo
 
 // ESTRELLAS
@@ -481,8 +504,8 @@ mov x15, 532 //530
 bl DrawEstrellas
 // END STARS
 
-mov x21, 228
-mov x22, 300
+mov x21, 240
+mov x22, 264
 bl pata1
 mov x21, 288
 mov x22, 336
@@ -501,7 +524,7 @@ bl DrawBody
 bl Arcoiris1
 // END PATAS
 mov x3, 168
-mov x4, 192
+mov x4, 204
 bl DrawCola3
 mov x3, 396
 mov x4, 180
@@ -517,9 +540,10 @@ sub x10, x18, x19 // resta 5 al ultimo color
 //movk x10, 0xffff, lsl 16
 
 mov x18, x10
+add x11, x11, 1 // contador sobre si cambia el rango de colores del degradé
 
-movz x17, 0x0001, lsl 00 // Aca usamos x21 porque de todos modos le vamos a borrar el contenido mas adelante
-//movk x17, 0x0003, lsl 16 // Setea un color para que vaya aumentando el rojo y el azul
+//add x10, x10, x17 //movz x17, 0x0000, lsl 00 // Aca usamos x21 porque de todos modos le vamos a borrar el contenido mas adelante
+//movk x17, 0x0001, lsl 16 // Setea un color para que vaya aumentando el rojo y el azul
 bl DrawFondo
 
 // ESTRELLAS
@@ -528,8 +552,8 @@ mov x15, 583 //mov x15, 583
 bl DrawEstrellas
 // END STARS
 
-mov x21, 228
-mov x22, 300
+mov x21, 240
+mov x22, 264
 bl pata1
 mov x21, 288
 mov x22, 336
@@ -547,7 +571,7 @@ mov x6,336 // Y
 bl DrawBody
 bl Arcoiris2
 mov x3, 168
-mov x4, 192
+mov x4, 204
 bl DrawCola2
 mov x3, 396
 mov x4, 168
@@ -649,13 +673,13 @@ DrawCircle:
     mov x1,640 // GUARDA EN X2 LA CANTIDAD DE COLUMNAS QUE " ...
     dcLoopb:
     //  si (x-h)² + (y-k)² <= r² ==> pintar , donde x = [640..0], y = [480..0], h = x24 (centro), k = x25 (centro), r = x26 (radio)
-    sub x11, x1, x24 // x - h
-    mul x11, x11, x11 // (x - h)²
-    sub x12, x2, x25 // y - k
-    mul x12, x12, x12 // (y - k)²
-    add x12, x11, x12 // (x-h)² + (y-k)²
-    mul x7, x26, x26 // r²
-    cmp x12,x7  // si (x-h)² + (y-k)² < r²  ---> pintamos
+    sub x4, x1, x24 // x - h
+    mul x4, x4, x4 // (x - h)²
+    sub x5, x2, x25 // y - k
+    mul x5, x5, x5 // (y - k)²
+    add x5, x4, x5 // (x-h)² + (y-k)²
+    mul x3, x26, x26 // r²
+    cmp x5,x3  // si (x-h)² + (y-k)² < r²  ---> pintamos
     b.gt dcNoPinta
     stur w10,[x0] // Pinta del color de w10
     dcNoPinta:
@@ -700,7 +724,7 @@ DrawFondo:
     br lr
 
 delay1:
-    movz x3 , 0x2000, lsl 16 // 0x0200 ideal time
+    movz x3 , 0x1000, lsl 16 // 0x0200 ideal time
     l1:
     sub x3, x3, 1
     cbnz x3, l1
@@ -1256,12 +1280,19 @@ pata4: //4th leg
     add x21, x21, 12
     sub x22, x22, 12
     bl DrawPixel
+    sub x22, x22, 12
+    bl DrawPixel
 
     movz x10, 0xD5D6, lsl 00 // Set color in grey
     movk x10, 0x00D8, lsl 16
+    add x22, x22, 12
     sub x21, x21, 12
     bl DrawPixel
     sub x21, x21, 12
+    bl DrawPixel
+    sub x22, x22, 12
+    bl DrawPixel
+    add x21,x21, 12
     bl DrawPixel
     ReturnPata4:
     mov x30,x23
@@ -1296,6 +1327,7 @@ pata2:
     //2nd leg
     movz x10, 0x0000, lsl 00 // Set color in black
     movk x10, 0x0000, lsl 16
+
     bl DrawPixel
     add x22, x22, 12
     bl DrawPixel
@@ -1374,8 +1406,8 @@ add x26, x14, 6 //mov x26, 6 // RADIO DEL CIRCULO
 cmp x26, 32
 b.lt skip00 // if new radio > 32, reinicio crecimiento del r a decreciente
 sub x16, x26, 32 // (r>32) - 32
-mov x17, 32 // 32
-sub x26, x17, x16 // r = 32 - ((r>32) - 32)
+mov x7, 32 // 32
+sub x26, x7, x16 // r = 32 - ((r>32) - 32)
 cmp x26, 0
 b.ge skip00 // if r < 0 then reinicio crecimiento a creciente de nuevo
 sub x26, XZR, x26
@@ -1396,8 +1428,8 @@ add x26, x14, 12 //mov x26, 12 // RADIO DEL CIRCULO
 cmp x26, 32
 b.lt skip01 // if new radio > 32, reinicio crecimiento del r a decreciente
 sub x16, x26, 32
-mov x17, 32
-sub x26, x17, x16
+mov x7, 32
+sub x26, x7, x16
 cmp x26, 0
 b.ge skip01 // if r < 0 then reinicio crecimiento a creciente de nuevo
 sub x26, XZR, x26
@@ -1419,8 +1451,8 @@ add x26, x14, 8 //mov x26, 8 // RADIO DEL CIRCULO
 cmp x26, 32
 b.lt skip02 // if new radio > 32, reinicio crecimiento del r a decreciente
 sub x16, x26, 32
-mov x17, 32
-sub x26, x17, x16
+mov x7, 32
+sub x26, x7, x16
 cmp x26, 0
 b.ge skip02 // if r < 0 then reinicio crecimiento a creciente de nuevo
 sub x26, XZR, x26
@@ -1442,8 +1474,8 @@ add x26, x14, 28 //mov x26, 28 // RADIO DEL CIRCULO
 cmp x26, 32
 b.lt skip03 // if new radio > 32, reinicio crecimiento del r a decreciente
 sub x16, x26, 32
-mov x17, 32
-sub x26, x17, x16
+mov x7, 32
+sub x26, x7, x16
 cmp x26, 0
 b.ge skip03 // if r < 0 then reinicio crecimiento a creciente de nuevo
 sub x26, XZR, x26
@@ -1465,8 +1497,8 @@ add x26, x14, 24 //mov x26, 24 // RADIO DEL CIRCULO
 cmp x26, 32
 b.lt skip04 // if new radio > 32, reinicio crecimiento del r a decreciente
 sub x16, x26, 32
-mov x17, 32
-sub x26, x17, x16
+mov x7, 32
+sub x26, x7, x16
 cmp x26, 0
 b.ge skip04 // if r < 0 then reinicio crecimiento a creciente de nuevo
 sub x26, XZR, x26
@@ -1488,8 +1520,8 @@ add x26, x14, 32 //mov x26, 32 // RADIO DEL CIRCULO
 cmp x26, 32
 b.lt skip05 // if new radio > 32, reinicio crecimiento del r a decreciente
 sub x16, x26, 32
-mov x17, 32
-sub x26, x17, x16
+mov x7, 32
+sub x26, x7, x16
 cmp x26, 0
 b.ge skip05 // if r < 0 then reinicio crecimiento a creciente de nuevo
 sub x26, XZR, x26
@@ -1511,8 +1543,8 @@ add x26, x14, 25 //mov x26, 25 // RADIO DEL CIRCULO
 cmp x26, 32
 b.lt skip06 // if new radio > 32, reinicio crecimiento del r a decreciente
 sub x16, x26, 32
-mov x17, 32
-sub x26, x17, x16
+mov x7, 32
+sub x26, x7, x16
 cmp x26, 0
 b.ge skip06 // if r < 0 then reinicio crecimiento a creciente de nuevo
 sub x26, XZR, x26
@@ -1534,8 +1566,8 @@ add x26, x14, 18 //mov x26, 18 // RADIO DEL CIRCULO
 cmp x26, 32
 b.lt skip07 // if new radio > 32, reinicio crecimiento del r a decreciente
 sub x16, x26, 32
-mov x17, 32
-sub x26, x17, x16
+mov x7, 32
+sub x26, x7, x16
 cmp x26, 0
 b.ge skip07 // if r < 0 then reinicio crecimiento a creciente de nuevo
 sub x26, XZR, x26
@@ -1612,6 +1644,6 @@ br lr
 
 //r1-r2: 180-236: -56; r1-r2/480: -0.11666666; 9*(r1-r2)/480: -1.05; redondeo: -1
 //g1-g2: 253-251: 2; g1-g2/480: 1/240: 0.004166666; 9*(g1-g2)/480: 0.0375; redondeo: 0
-//b1-b2:
+//b1-b2: 255-252: 3; b1-b2/480: 0.00625; 9*(b1-b2)/480: 0.05626; redondeo: 0
 
 
