@@ -9,6 +9,8 @@ mov x20, x0 // Save framebuffer base address to x20
 
 //movz x18, 0x0000, lsl 48
 mov x18, xzr
+mov x19, 0
+mov x11, -1
 movz x10, 0xfdff  // Direccion de memoria que contiene el color con el que se pinta
 movk x10, 0x00b4, lsl 16
 
@@ -19,26 +21,33 @@ movz w13, 300, lsl 16
 lsl w13, w13, 16
 movk w13, 324, lsl 0
 
-mov x19, 0
-mov x11, 0
+add x11, x11, 1 // contador sobre si cambia el rango de colores del degradé
 movz x17, 0x0000 // x17 nos pauta de que color a cual vamos, en este caso cel-cel claro
 movk x17, 0x0001, lsl 16 //
 cbz x11, skippp
-//movz x17, 0x0000 // x17 nos pauta de que color a cual vamos, en este caso cel-cel claro
-//movk x17, 0x0001, lsl 16 //
-//cmp x11, 2
-//b.ne skipp
-//movz x17, 0x0000 // x17 nos pauta de que color a cual vamos, en este caso fondo-cel
-//movk x17, 0x0001, lsl 16 //
-//cmp x11, 3
-//b.ne skipp
-//movz x17, 0x0000 // x17 nos pauta de que color a cual vamos, en este caso negro-fondo claro
-//movk x17, 0x0001, lsl 16 //
+
+movz x19, 0x0000
+movk x19, 0x0001, lsl 16
+movz x17, 0x0000 // x17 nos pauta de que color a cual vamos, en este caso cel-cel claro
+movk x17, 0x0001, lsl 16 //
+cmp x11, 2
+b.ne skippp
+movz x19, 0x0000
+movk x19, 0x0001, lsl 16
+movz x17, 0x0000 // x17 nos pauta de que color a cual vamos, en este caso fondo-cel
+movk x17, 0x0001, lsl 16 //
+cmp x11, 3
+b.ne skippp
+movz x19, 0x0000
+movk x19, 0x0001, lsl 16
+movz x17, 0x0000 // x17 nos pauta de que color a cual vamos, en este caso negro-fondo claro
+movk x17, 0x0001, lsl 16 //
 skippp:
 cbz x18, skipp
 mov x10, x18 // pone el ultimo color del frame 12 en el x10 para el frame "13"
 //add x10, x10, x19 // resta 5 al ultimo color
 skipp:
+
 
 // TODO FRAME 1
 frame1:
@@ -57,19 +66,9 @@ mov x15, 0
 bl DrawEstrellas
 
 //BODY
-mov x21, 228
-mov x22, 300
-bl pata1
-
-//mov x21, 300
-//mov x22, 324
-bl pata2
-mov x21, 408
-mov x22, 324
-bl pata3
-mov x21, 480
-mov x22, 324
-bl pata4
+movz x13, 228, lsl 16
+movk x13, 300, lsl 0
+bl DrawPatas
 mov x3,264 // x
 mov x4,96 // y
 mov x5,478 // X
@@ -77,7 +76,7 @@ mov x6,324 // Y
 bl DrawBody
 bl Arcoiris1
 mov x3, 168
-mov x4, 192
+mov x4, 180
 bl DrawCola1
 mov x3, 396
 mov x4, 168
@@ -103,18 +102,9 @@ mov x14, 10 //3
 mov x15, 55 //53
 bl DrawEstrellas
 
-mov x21, 240
-mov x22, 300
-bl pata1
-mov x21, 300
-mov x22, 324
-bl pata2
-mov x21, 420
-mov x22, 324
-bl pata3
-mov x21, 492
-mov x22, 324
-bl pata4
+movz x13, 240, lsl 16
+movk x13, 300, lsl 0
+bl DrawPatas
 
 mov x3,264 // x
 mov x4,96 // y
@@ -123,7 +113,7 @@ mov x6,324 // Y
 bl DrawBody
 bl Arcoiris1
 mov x3, 168
-mov x4, 192
+mov x4, 300 //168
 bl DrawCola2
 mov x3, 408
 mov x4, 168
@@ -147,18 +137,10 @@ mov x15, 108 //106
 bl DrawEstrellas
 // END STARS
 
-mov x21, 252
-mov x22, 312
-bl pata1
-mov x21, 312
-mov x22, 336
-bl pata2
-mov x21, 432
-mov x22, 336
-bl pata3
-mov x21, 504
-mov x22, 336
-bl pata4
+movz x13, 252, lsl 16
+movk x13, 312, lsl 0
+bl DrawPatas
+
 mov x3,264 // x
 mov x4,108 // y
 mov x5,478 // X
@@ -166,7 +148,7 @@ mov x6,336 // Y
 bl DrawBody
 bl Arcoiris2
 mov x3, 168
-mov x4, 204
+mov x4, 192
 bl DrawCola3
 mov x3, 408
 mov x4, 180
@@ -190,18 +172,10 @@ mov x15, 161 //159
 bl DrawEstrellas
 // END STARS
 
-mov x21, 240
-mov x22, 312
-bl pata1
-mov x21, 300
-mov x22, 336
-bl pata2
-mov x21, 420
-mov x22, 336
-bl pata3
-mov x21, 492
-mov x22, 336
-bl pata4
+movz x13, 240, lsl 16
+movk x13, 312, lsl 0
+bl DrawPatas
+
 mov x3,264 // x
 mov x4,108 // y
 mov x5,478 // X
@@ -231,18 +205,10 @@ mov x15, 214 //212
 bl DrawEstrellas
 // END STARS
 
-mov x21, 204
-mov x22, 300
-bl pata1
-mov x21, 288
-mov x22, 336
-bl pata2
-mov x21, 396
-mov x22, 336
-bl pata3
-mov x21, 468
-mov x22, 336
-bl pata4
+movz x13, 216, lsl 16
+movk x13, 312, lsl 0
+bl DrawPatas
+
 mov x3,264 // x
 mov x4,108 // y
 mov x5,478 // X
@@ -274,18 +240,11 @@ mov x14, 24 //15
 mov x15, 267 //265
 bl DrawEstrellas
 // END STARS
-mov x21, 204
-mov x22, 300
-bl pata1
-mov x21, 288
-mov x22, 336
-bl pata2
-mov x21, 396
-mov x22, 336
-bl pata3
-mov x21, 468
-mov x22, 336
-bl pata4
+
+movz x13, 216, lsl 16
+movk x13, 312, lsl 0
+bl DrawPatas
+
 mov x3,264 // x
 mov x4,108 // y
 mov x5,478 // X
@@ -321,19 +280,10 @@ mov x15, 320 //318
 bl DrawEstrellas
 // END STARS
 
-//BODY
-mov x21, 228
-mov x22, 288
-bl pata1
-mov x21, 312
-mov x22, 324
-bl pata2
-mov x21, 408
-mov x22, 324
-bl pata3
-mov x21, 480
-mov x22, 324
-bl pata4
+movz x13, 228, lsl 16
+movk x13, 300, lsl 0
+bl DrawPatas
+
 mov x3,264 // x
 mov x4,96 // y
 mov x5,478 // X
@@ -341,7 +291,7 @@ mov x6,324 // Y
 bl DrawBody
 bl Arcoiris1
 mov x3, 168
-mov x4, 192
+mov x4, 180
 bl DrawCola1
 mov x3, 396
 mov x4, 168
@@ -370,18 +320,10 @@ mov x15, 373 //371
 bl DrawEstrellas
 // END STARS
 
-mov x21, 240
-mov x22, 288
-bl pata1
-mov x21, 312
-mov x22, 324
-bl pata2
-mov x21, 420
-mov x22, 324
-bl pata3
-mov x21, 492
-mov x22, 324
-bl pata4
+movz x13, 240, lsl 16
+movk x13, 300, lsl 0
+bl DrawPatas
+
 mov x3,264 // x
 mov x4,96 // y
 mov x5,478 // X
@@ -390,7 +332,7 @@ bl DrawBody
 bl Arcoiris1
 // END PATAS
 mov x3, 168
-mov x4, 192
+mov x4, 168
 bl DrawCola2
 mov x3, 408
 mov x4, 168
@@ -415,18 +357,10 @@ mov x15, 426 //424
 bl DrawEstrellas
 // END STARS
 
-mov x21, 240
-mov x22, 288
-bl pata1
-mov x21, 324
-mov x22, 336
-bl pata2
-mov x21, 432
-mov x22, 336
-bl pata3
-mov x21, 492
-mov x22, 336
-bl pata4
+movz x13, 252, lsl 16
+movk x13, 312, lsl 0
+bl DrawPatas
+
 mov x3,264 // x
 mov x4,108 // y
 mov x5,478 // X
@@ -459,18 +393,10 @@ mov x15, 479 //477
 bl DrawEstrellas
 // END STARS
 
-mov x21, 240
-mov x22, 288
-bl pata1
-mov x21, 312
-mov x22, 336
-bl pata2
-mov x21, 420
-mov x22, 336
-bl pata3
-mov x21, 480
-mov x22, 336
-bl pata4
+movz x13, 240, lsl 16
+movk x13, 312, lsl 0
+bl DrawPatas
+
 mov x3,264 // x
 mov x4,108 // y
 mov x5,478 // X
@@ -504,18 +430,10 @@ mov x15, 532 //530
 bl DrawEstrellas
 // END STARS
 
-mov x21, 240
-mov x22, 264
-bl pata1
-mov x21, 288
-mov x22, 336
-bl pata2
-mov x21, 396
-mov x22, 336
-bl pata3
-mov x21, 468
-mov x22, 336
-bl pata4
+movz x13, 216, lsl 16
+movk x13, 312, lsl 0
+bl DrawPatas
+
 mov x3,264 // x
 mov x4,108 // y
 mov x5,478 // X
@@ -552,18 +470,10 @@ mov x15, 583 //mov x15, 583
 bl DrawEstrellas
 // END STARS
 
-mov x21, 240
-mov x22, 264
-bl pata1
-mov x21, 288
-mov x22, 336
-bl pata2
-mov x21, 396
-mov x22, 336
-bl pata3
-mov x21, 468
-mov x22, 336
-bl pata4
+movz x13, 216, lsl 16
+movk x13, 312, lsl 0
+bl DrawPatas
+
 mov x3,264 // x
 mov x4,108 // y
 mov x5,478 // X
@@ -714,6 +624,8 @@ DrawFondo:
     b.ne skipResetBlue // SI NO TERMINO EL CONTADOR, NO LO RESETEA
     //movz x17, 0x0001, lsl 00 // Aca usamos x21 porque de todos modos le vamos a borrar el contenido mas adelante
     //movk x17, 0x0003, lsl 16 // Setea un color para que vaya aumentando el rojo y el azul
+    //0x00010000
+    //  A_R_G_B_
     add w10,w10,w17 // Suma uno al color AZUL y ROJO
     mov x21,0   // RESETEA EL CONTADOR (Aca es donde reseteamos x21 por eso no importa usarlo como color)
     skipResetBlue: // Continua el ciclo de 9
@@ -1099,7 +1011,7 @@ DrawCola2:
     movz x10, 0x0000, lsl 00 // Set color in black
     movk x10, 0x0000, lsl 16
     mov x21, 228
-    mov x22, 264
+    mov x22, 252
     bl DrawPixel
     sub x21, x21, 12
     bl DrawPixel
@@ -1265,6 +1177,22 @@ DrawCola4:
     bl DrawSquare
     ReturnDrawCola4:
     mov x30,x23
+    br lr
+
+DrawPatas: // Toma un punto X,Y en x13
+    mov x14, x30
+    lsr w21, w13, 16
+    mov w22, w13
+    movk x22, 0x0000, lsl 16
+    bl pata1
+    add x21,x21,72
+    add x22,x22,24
+    bl pata2
+    add x21, x21, 84
+    bl pata3
+    add x21, x21, 24
+    bl pata4
+    mov x30, x14
     br lr
 
 pata4: //4th leg
@@ -1615,13 +1543,13 @@ DrawPicture: // takes an image from the sub-buffer and replaces it in the main o
 mov x23, x30
 
 mov x0, x20
-mov x19, x18
+//mov x19, x18
 
 again:
 ldur x0,[x19]
 
 add x0,x0,8
-add x19,x19,8
+//add x19,x19,8
 cmp x0, x18
 b.ne again
 
