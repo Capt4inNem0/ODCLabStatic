@@ -16,48 +16,9 @@ movk x10, 0xffff, lsl 16
 
 bl DrawFondo
 
-// ESTRELLAS
-movz x10, 0xffff, lsl 00 // color BLANCO
-movk x10, 0xffff, lsl 16
-mov x26, 6 // RADIO DEL CIRCULO
-mov x24,320 // coordenada x del centro del circulo teniendo en cuenta un eje cartesiano con el (0,0) en la esquina inferior derecha
-mov x25,440 // coordenada y  "" ..
-bl DrawCircle
-
-mov x26, 12 // RADIO DEL CIRCULO
-mov x24,380 // (x,y)  centro desde esquina inferior derecha (0,0)
-mov x25,70 //
-bl DrawCircle
-
-mov x26, 8 // RADIO DEL CIRCULO
-mov x24,520// (x,y) centro desde esquina inferior derecha (0,0)
-mov x25,35 //
-bl DrawCircle
-
-mov x26, 64 // RADIO DEL CIRCULO
-mov x24,76 // (x,y) centro desde esquina inferior derecha (0,0)
-mov x25,300 //
-bl DrawCircle
-
-mov x26, 32 // RADIO DEL CIRCULO
-mov x24,580 // (x,y) centro desde esquina inferior derecha (0,0)
-mov x25,128 //
-bl DrawCircle
-
-mov x26, 48 // RADIO DEL CIRCULO
-mov x24,480 // (x,y) centro desde esquina inferior derecha (0,0)
-mov x25,380 //
-bl DrawCircle
-
-mov x26, 50 // RADIO DEL CIRCULO
-mov x24,59 // (x,y) centro desde esquina inferior derecha (0,0)
-mov x25,460 //
-bl DrawCircle
-
-mov x26, 36 // RADIO DEL CIRCULO
-mov x24,100// (x,y) centro desde esquina inferior derecha (0,0)
-mov x25,16 //
-bl DrawCircle
+mov x14, 0
+mov x15, 0
+bl DrawEstrellas
 
 //BODY
 mov x21, 228
@@ -90,50 +51,12 @@ bl delay1
 bl DrawFondo
 
 // ESTRELLAS
-// FOR REFERENCE: los circulos se van moviendo de 53 en 53 por 12 frames hasta 640
-//el radio de 6 en 6 en 12 frames hasta 64
+// FOR REFERENCE: los circulos se van moviendo de 53 en 53 por 12 frames hasta 640 (limite de reinicio)
+//el radio de 3 en 3 en 12 frames hasta 32(limite de reinicio)
 
-movz x10, 0xffff, lsl 00 // color BLANCO
-movk x10, 0xffff, lsl 16
-mov x26, 12 // RADIO DEL CIRCULO
-mov x24,373 // coordenada x del centro del circulo teniendo en cuenta un eje cartesiano con el (0,0) en la esquina inferior derecha
-mov x25,440 // coordenada y  "" ..
-bl DrawCircle
-
-mov x26, 18 // RADIO DEL CIRCULO
-mov x24,433 // (x,y)  centro desde esquina inferior derecha (0,0)
-mov x25,70 //
-bl DrawCircle
-
-mov x26, 14 // RADIO DEL CIRCULO
-mov x24,573// (x,y) centro desde esquina inferior derecha (0,0)
-mov x25,35 //
-bl DrawCircle
-
-mov x26, 58 // RADIO DEL CIRCULO
-mov x24,129 // (x,y) centro desde esquina inferior derecha (0,0)
-mov x25,300 //
-bl DrawCircle
-
-mov x26, 38 // RADIO DEL CIRCULO
-mov x24,633 // (x,y) centro desde esquina inferior derecha (0,0)
-mov x25,128 //
-bl DrawCircle
-
-mov x26, 54 // RADIO DEL CIRCULO
-mov x24,533 // (x,y) centro desde esquina inferior derecha (0,0)
-mov x25,380 //
-bl DrawCircle
-
-mov x26, 56 // RADIO DEL CIRCULO
-mov x24,112 // (x,y) centro desde esquina inferior derecha (0,0)
-mov x25,460 //
-bl DrawCircle
-
-mov x26, 42 // RADIO DEL CIRCULO
-mov x24,153 // (x,y) centro desde esquina inferior derecha (0,0)
-mov x25,16 //
-bl DrawCircle
+mov x14, 10 //3
+mov x15, 55 //53
+bl DrawEstrellas
 
 mov x21, 228
 mov x22, 300
@@ -167,49 +90,9 @@ bl delay1
 bl DrawFondo
 
 // ESTRELLAS
-
-movz x10, 0xffff, lsl 00 // color BLANCO
-movk x10, 0xffff, lsl 16
-mov x26, 18 // RADIO DEL CIRCULO
-mov x24,426 // coordenada x del centro del circulo teniendo en cuenta un eje cartesiano con el (0,0) en la esquina inferior derecha
-mov x25,440 // coordenada y  "" ..
-bl DrawCircle
-
-mov x26, 24 // RADIO DEL CIRCULO
-mov x24,486 // (x,y)  centro desde esquina inferior derecha (0,0)
-mov x25,70 //
-bl DrawCircle
-
-mov x26, 20 // RADIO DEL CIRCULO
-mov x24,626 // (x,y) centro desde esquina inferior derecha (0,0)
-mov x25,35 //
-bl DrawCircle
-
-mov x26, 52 // RADIO DEL CIRCULO
-mov x24,182 // (x,y) centro desde esquina inferior derecha (0,0)
-mov x25,300 //
-bl DrawCircle
-
-mov x26, 44 // RADIO DEL CIRCULO
-mov x24,46 // (x,y) centro desde esquina inferior derecha (0,0)
-mov x25,128 //
-bl DrawCircle
-
-mov x26, 60 // RADIO DEL CIRCULO
-mov x24,586 // (x,y) centro desde esquina inferior derecha (0,0)
-mov x25,380 //
-bl DrawCircle
-
-mov x26, 62 // RADIO DEL CIRCULO
-mov x24,165 // (x,y) centro desde esquina inferior derecha (0,0)
-mov x25,460 //
-bl DrawCircle
-
-mov x26, 48 // RADIO DEL CIRCULO
-mov x24,206// (x,y) centro desde esquina inferior derecha (0,0)
-mov x25,16 //
-bl DrawCircle
-
+mov x14, 13 //6
+mov x15, 108 //106
+bl DrawEstrellas
 // END STARS
 
 mov x21, 228
@@ -243,50 +126,11 @@ bl delay1
 bl DrawFondo
 
 // ESTRELLAS
-
-movz x10, 0xffff, lsl 00 // color BLANCO
-movk x10, 0xffff, lsl 16
-mov x26, 24 // RADIO DEL CIRCULO
-mov x24,479 // coordenada x del centro del circulo teniendo en cuenta un eje cartesiano con el (0,0) en la esquina inferior derecha
-mov x25,440 // coordenada y  "" ..
-bl DrawCircle
-
-mov x26, 30 // RADIO DEL CIRCULO
-mov x24,539 // (x,y)  centro desde esquina inferior derecha (0,0)
-mov x25,70 //
-bl DrawCircle
-
-mov x26, 26 // RADIO DEL CIRCULO
-mov x24,39 // (x,y) centro desde esquina inferior derecha (0,0)
-mov x25,35 //
-bl DrawCircle
-
-mov x26, 46 // RADIO DEL CIRCULO
-mov x24,235 // (x,y) centro desde esquina inferior derecha (0,0)
-mov x25,300 //
-bl DrawCircle
-
-mov x26, 50 // RADIO DEL CIRCULO
-mov x24,99 // (x,y) centro desde esquina inferior derecha (0,0)
-mov x25,128 //
-bl DrawCircle
-
-mov x26, 62 // RADIO DEL CIRCULO
-mov x24,639 // (x,y) centro desde esquina inferior derecha (0,0)
-mov x25,380 //
-bl DrawCircle
-
-mov x26, 58 // RADIO DEL CIRCULO
-mov x24,218 // (x,y) centro desde esquina inferior derecha (0,0)
-mov x25,460 //
-bl DrawCircle
-
-mov x26, 54 // RADIO DEL CIRCULO
-mov x24,259 // (x,y) centro desde esquina inferior derecha (0,0)
-mov x25,16 //
-bl DrawCircle
-
+mov x14, 16 //9
+mov x15, 161 //159
+bl DrawEstrellas
 // END STARS
+
 mov x21, 228
 mov x22, 300
 bl pata1
@@ -316,42 +160,11 @@ bl delay1
 // TODO FRAME 5
 bl DrawFondo
 // ESTRELLAS
-movz x10, 0xffff, lsl 00 // color BLANCO
-movk x10, 0xffff, lsl 16
-mov x26, 30 // RADIO DEL CIRCULO
-mov x24,532 // coordenada x del centro del circulo teniendo en cuenta un eje cartesiano con el (0,0) en la esquina inferior derecha
-mov x25,440 // coordenada y  "" ..
-bl DrawCircle
-mov x26, 36 // RADIO DEL CIRCULO
-mov x24,592 // (x,y)  centro desde esquina inferior derecha (0,0)
-mov x25,70 //
-bl DrawCircle
-mov x26, 32 // RADIO DEL CIRCULO
-mov x24,92 // (x,y) centro desde esquina inferior derecha (0,0)
-mov x25,35 //
-bl DrawCircle
-mov x26, 40 // RADIO DEL CIRCULO
-mov x24,288 // (x,y) centro desde esquina inferior derecha (0,0)
-mov x25,300 //
-bl DrawCircle
-mov x26, 56 // RADIO DEL CIRCULO
-mov x24,152 // (x,y) centro desde esquina inferior derecha (0,0)
-mov x25,128 //
-bl DrawCircle
-mov x26, 46 // RADIO DEL CIRCULO
-mov x24, 52 // (x,y) centro desde esquina inferior derecha (0,0)
-mov x25,380 //
-bl DrawCircle
-mov x26, 46 // RADIO DEL CIRCULO
-mov x24,271 // (x,y) centro desde esquina inferior derecha (0,0)
-mov x25,460 //
-bl DrawCircle
-mov x26, 60 // RADIO DEL CIRCULO
-mov x24,312 // (x,y) centro desde esquina inferior derecha (0,0)
-mov x25,16 //
-bl DrawCircle
-
+mov x14, 20 //12
+mov x15, 214 //212
+bl DrawEstrellas
 // END STARS
+
 mov x21, 228
 mov x22, 300
 bl pata1
@@ -384,41 +197,9 @@ bl delay1
 bl DrawFondo
 
 // ESTRELLAS
-movz x10, 0xffff, lsl 00 // color BLANCO
-movk x10, 0xffff, lsl 16
-mov x26, 36 // RADIO DEL CIRCULO
-mov x24,585 // coordenada x del centro del circulo teniendo en cuenta un eje cartesiano con el (0,0) en la esquina inferior derecha
-mov x25,440 // coordenada y  "" ..
-bl DrawCircle
-mov x26, 42 // RADIO DEL CIRCULO
-mov x24,645 // (x,y)  centro desde esquina inferior derecha (0,0)
-mov x25,70 //
-bl DrawCircle
-mov x26, 38 // RADIO DEL CIRCULO
-mov x24,145 // (x,y) centro desde esquina inferior derecha (0,0)
-mov x25,35 //
-bl DrawCircle
-mov x26, 34 // RADIO DEL CIRCULO
-mov x24,341 // (x,y) centro desde esquina inferior derecha (0,0)
-mov x25,300 //
-bl DrawCircle
-mov x26, 62 // RADIO DEL CIRCULO
-mov x24,205 // (x,y) centro desde esquina inferior derecha (0,0)
-mov x25,128 //
-bl DrawCircle
-mov x26, 52 // RADIO DEL CIRCULO
-mov x24, 105 // (x,y) centro desde esquina inferior derecha (0,0)
-mov x25,380 //
-bl DrawCircle
-mov x26, 52 // RADIO DEL CIRCULO
-mov x24,324 // (x,y) centro desde esquina inferior derecha (0,0)
-mov x25,460 //
-bl DrawCircle
-mov x26, 62 // RADIO DEL CIRCULO
-mov x24,365 // (x,y) centro desde esquina inferior derecha (0,0)
-mov x25,16 //
-bl DrawCircle
-
+mov x14, 24 //15
+mov x15, 267 //265
+bl DrawEstrellas
 // END STARS
 mov x21, 228
 mov x22, 300
@@ -455,48 +236,10 @@ bl DrawFondo
 // END FONDO
 
 // ESTRELLAS
-
-movz x10, 0xffff, lsl 00 // color BLANCO
-movk x10, 0xffff, lsl 16
-mov x26, 42 // RADIO DEL CIRCULO
-mov x24,638 // coordenada x del centro del circulo teniendo en cuenta un eje cartesiano con el (0,0) en la esquina inferior derecha
-mov x25,440 // coordenada y  "" ..
-bl DrawCircle
-
-mov x26, 48 // RADIO DEL CIRCULO
-mov x24,58 // (x,y)  centro desde esquina inferior derecha (0,0)
-mov x25,70 //
-bl DrawCircle
-
-mov x26, 44 // RADIO DEL CIRCULO
-mov x24, 198 // (x,y) centro desde esquina inferior derecha (0,0)
-mov x25,35 //
-bl DrawCircle
-
-mov x26, 28 // RADIO DEL CIRCULO
-mov x24, 394 // (x,y) centro desde esquina inferior derecha (0,0)
-mov x25, 300 //
-bl DrawCircle
-
-mov x26, 60 // RADIO DEL CIRCULO
-mov x24,258 // (x,y) centro desde esquina inferior derecha (0,0)
-mov x25,128 //
-bl DrawCircle
-
-mov x26, 28 // RADIO DEL CIRCULO
-mov x24,158 // (x,y) centro desde esquina inferior derecha (0,0)
-mov x25,380 //
-bl DrawCircle
-
-mov x26, 28 // RADIO DEL CIRCULO
-mov x24,377 // (x,y) centro desde esquina inferior derecha (0,0)
-mov x25,460 //
-bl DrawCircle
-
-mov x26, 28 // RADIO DEL CIRCULO
-mov x24,418 // (x,y) centro desde esquina inferior derecha (0,0)
-mov x25,16 //
-bl DrawCircle
+mov x14, 27 //18
+mov x15, 320 //318
+bl DrawEstrellas
+// END STARS
 
 //BODY
 mov x21, 228
@@ -535,53 +278,15 @@ bl DrawFondo
 // END FONDO
 
 // ESTRELLAS
-
-movz x10, 0xffff, lsl 00 // color BLANCO
-movk x10, 0xffff, lsl 16
-mov x26, 48 // RADIO DEL CIRCULO
-mov x24,51 // coordenada x del centro del circulo teniendo en cuenta un eje cartesiano con el (0,0) en la esquina inferior derecha
-mov x25,440 // coordenada y  "" ..
-bl DrawCircle
-
-mov x26, 54 // RADIO DEL CIRCULO
-mov x24,111 // (x,y)  centro desde esquina inferior derecha (0,0)
-mov x25,70 //
-bl DrawCircle
-
-mov x26, 50 // RADIO DEL CIRCULO
-mov x24, 251 // (x,y) centro desde esquina inferior derecha (0,0)
-mov x25,35 //
-bl DrawCircle
-
-mov x26, 54 // RADIO DEL CIRCULO
-mov x24, 447 // (x,y) centro desde esquina inferior derecha (0,0)
-mov x25, 300 //
-bl DrawCircle
-
-mov x26, 34 // RADIO DEL CIRCULO
-mov x24,311 // (x,y) centro desde esquina inferior derecha (0,0)
-mov x25,128 //
-bl DrawCircle
-
-mov x26, 34 // RADIO DEL CIRCULO
-mov x24,211 // (x,y) centro desde esquina inferior derecha (0,0)
-mov x25,380 //
-bl DrawCircle
-
-mov x26, 34 // RADIO DEL CIRCULO
-mov x24,430 // (x,y) centro desde esquina inferior derecha (0,0)
-mov x25,460 //
-bl DrawCircle
-
-mov x26, 34 // RADIO DEL CIRCULO
-mov x24,471 // (x,y) centro desde esquina inferior derecha (0,0)
-mov x25,16 //
-bl DrawCircle
+mov x14, 30 //21
+mov x15, 373 //371
+bl DrawEstrellas
+// END STARS
 
 mov x21, 228
 mov x22, 300
 bl pata1
-mov x21, 300
+mov x21, 312
 mov x22, 324
 bl pata2
 mov x21, 408
@@ -611,56 +316,16 @@ bl delay1
 // TODO FRAME 9
 bl DrawFondo
 // ESTRELLAS
-
-movz x10, 0xffff, lsl 00 // color BLANCO
-movk x10, 0xffff, lsl 16
-mov x26, 54 // RADIO DEL CIRCULO
-mov x24,104 // coordenada x del centro del circulo teniendo en cuenta un eje cartesiano con el (0,0) en la esquina inferior derecha
-mov x25,440 // coordenada y  "" ..
-bl DrawCircle
-
-mov x26, 60 // RADIO DEL CIRCULO
-mov x24,164 // (x,y)  centro desde esquina inferior derecha (0,0)
-mov x25,70 //
-bl DrawCircle
-
-mov x26, 56 // RADIO DEL CIRCULO
-mov x24, 304 // (x,y) centro desde esquina inferior derecha (0,0)
-mov x25,35 //
-bl DrawCircle
-
-mov x26, 16 // RADIO DEL CIRCULO
-mov x24, 500 // (x,y) centro desde esquina inferior derecha (0,0)
-mov x25, 300 //
-bl DrawCircle
-
-mov x26, 48 // RADIO DEL CIRCULO
-mov x24,364 // (x,y) centro desde esquina inferior derecha (0,0)
-mov x25,128 //
-bl DrawCircle
-
-mov x26, 34 // RADIO DEL CIRCULO
-mov x24,264 // (x,y) centro desde esquina inferior derecha (0,0)
-mov x25,380 //
-bl DrawCircle
-
-mov x26, 34 // RADIO DEL CIRCULO
-mov x24,483 // (x,y) centro desde esquina inferior derecha (0,0)
-mov x25,460 //
-bl DrawCircle
-
-mov x26, 34 // RADIO DEL CIRCULO
-mov x24,524 // (x,y) centro desde esquina inferior derecha (0,0)
-mov x25,16 //
-bl DrawCircle
-
+mov x14, 33 //24
+mov x15, 426 //424
+bl DrawEstrellas
 // END STARS
 
 mov x21, 228
 mov x22, 300
 bl pata1
-mov x21, 300
-mov x22, 324
+mov x21, 324
+mov x22, 336
 bl pata2
 mov x21, 408
 mov x22, 324
@@ -688,56 +353,16 @@ bl delay1
 bl DrawFondo
 
 // ESTRELLAS
-
-movz x10, 0xffff, lsl 00 // color BLANCO
-movk x10, 0xffff, lsl 16
-mov x26, 60 // RADIO DEL CIRCULO
-mov x24,157 // coordenada x del centro del circulo teniendo en cuenta un eje cartesiano con el (0,0) en la esquina inferior derecha
-mov x25,440 // coordenada y  "" ..
-bl DrawCircle
-
-mov x26, 62 // RADIO DEL CIRCULO
-mov x24,217 // (x,y)  centro desde esquina inferior derecha (0,0)
-mov x25,70 //
-bl DrawCircle
-
-mov x26, 62 // RADIO DEL CIRCULO
-mov x24, 357 // (x,y) centro desde esquina inferior derecha (0,0)
-mov x25,35 //
-bl DrawCircle
-
-mov x26, 10 // RADIO DEL CIRCULO
-mov x24, 553 // (x,y) centro desde esquina inferior derecha (0,0)
-mov x25, 300 //
-bl DrawCircle
-
-mov x26, 42 // RADIO DEL CIRCULO
-mov x24,417 // (x,y) centro desde esquina inferior derecha (0,0)
-mov x25,128 //
-bl DrawCircle
-
-mov x26, 34 // RADIO DEL CIRCULO
-mov x24,317 // (x,y) centro desde esquina inferior derecha (0,0)
-mov x25,380 //
-bl DrawCircle
-
-mov x26, 34 // RADIO DEL CIRCULO
-mov x24,536 // (x,y) centro desde esquina inferior derecha (0,0)
-mov x25,460 //
-bl DrawCircle
-
-mov x26, 34 // RADIO DEL CIRCULO
-mov x24,577 // (x,y) centro desde esquina inferior derecha (0,0)
-mov x25,16 //
-bl DrawCircle
-
+mov x14, 37 //27
+mov x15, 479 //477
+bl DrawEstrellas
 // END STARS
 
 mov x21, 228
 mov x22, 300
 bl pata1
-mov x21, 300
-mov x22, 324
+mov x21, 312
+mov x22, 336
 bl pata2
 mov x21, 408
 mov x22, 324
@@ -766,56 +391,16 @@ bl delay1
 bl DrawFondo
 
 // ESTRELLAS
-
-movz x10, 0xffff, lsl 00 // color BLANCO
-movk x10, 0xffff, lsl 16
-mov x26, 62 // RADIO DEL CIRCULO
-mov x24,210 // coordenada x del centro del circulo teniendo en cuenta un eje cartesiano con el (0,0) en la esquina inferior derecha
-mov x25,440 // coordenada y  "" ..
-bl DrawCircle
-
-mov x26, 56 // RADIO DEL CIRCULO
-mov x24,270 // (x,y)  centro desde esquina inferior derecha (0,0)
-mov x25,70 //
-bl DrawCircle
-
-mov x26, 60 // RADIO DEL CIRCULO
-mov x24, 410 // (x,y) centro desde esquina inferior derecha (0,0)
-mov x25,35 //
-bl DrawCircle
-
-mov x26, 4 // RADIO DEL CIRCULO
-mov x24, 606 // (x,y) centro desde esquina inferior derecha (0,0)
-mov x25, 300 //
-bl DrawCircle
-
-mov x26, 36 // RADIO DEL CIRCULO
-mov x24,470 // (x,y) centro desde esquina inferior derecha (0,0)
-mov x25,128 //
-bl DrawCircle
-
-mov x26, 34 // RADIO DEL CIRCULO
-mov x24,370 // (x,y) centro desde esquina inferior derecha (0,0)
-mov x25,380 //
-bl DrawCircle
-
-mov x26, 34 // RADIO DEL CIRCULO
-mov x24,589 // (x,y) centro desde esquina inferior derecha (0,0)
-mov x25,460 //
-bl DrawCircle
-
-mov x26, 34 // RADIO DEL CIRCULO
-mov x24,630 // (x,y) centro desde esquina inferior derecha (0,0)
-mov x25,16 //
-bl DrawCircle
-
+mov x14, 42 //30
+mov x15, 532 //530
+bl DrawEstrellas
 // END STARS
 
 mov x21, 228
 mov x22, 300
 bl pata1
-mov x21, 300
-mov x22, 324
+mov x21, 288
+mov x22, 336
 bl pata2
 mov x21, 408
 mov x22, 324
@@ -845,56 +430,16 @@ bl delay1
 bl DrawFondo
 
 // ESTRELLAS
-
-movz x10, 0xffff, lsl 00 // color BLANCO
-movk x10, 0xffff, lsl 16
-mov x26, 56 // RADIO DEL CIRCULO
-mov x24,263 // coordenada x del centro del circulo teniendo en cuenta un eje cartesiano con el (0,0) en la esquina inferior derecha
-mov x25,440 // coordenada y  "" ..
-bl DrawCircle
-
-mov x26, 50 // RADIO DEL CIRCULO
-mov x24,323 // (x,y)  centro desde esquina inferior derecha (0,0)
-mov x25,70 //
-bl DrawCircle
-
-mov x26, 54 // RADIO DEL CIRCULO
-mov x24, 463 // (x,y) centro desde esquina inferior derecha (0,0)
-mov x25,35 //
-bl DrawCircle
-
-mov x26, 2 // RADIO DEL CIRCULO
-mov x24, 19 // (x,y) centro desde esquina inferior derecha (0,0)
-mov x25, 300 //
-bl DrawCircle
-
-mov x26, 30 // RADIO DEL CIRCULO
-mov x24,523 // (x,y) centro desde esquina inferior derecha (0,0)
-mov x25,128 //
-bl DrawCircle
-
-mov x26, 34 // RADIO DEL CIRCULO
-mov x24,423 // (x,y) centro desde esquina inferior derecha (0,0)
-mov x25,380 //
-bl DrawCircle
-
-mov x26, 34 // RADIO DEL CIRCULO
-mov x24,2 // (x,y) centro desde esquina inferior derecha (0,0)
-mov x25,460 //
-bl DrawCircle
-
-mov x26, 34 // RADIO DEL CIRCULO
-mov x24,43 // (x,y) centro desde esquina inferior derecha (0,0)
-mov x25,16 //
-bl DrawCircle
-
+mov x14, 52 //mov x14, 33
+mov x15, 583 //mov x15, 583
+bl DrawEstrellas
 // END STARS
 
 mov x21, 228
 mov x22, 300
 bl pata1
-mov x21, 300
-mov x22, 324
+mov x21, 288
+mov x22, 336
 bl pata2
 mov x21, 408
 mov x22, 324
@@ -1073,7 +618,7 @@ DrawFondo:
     br lr
 
 delay1:
-    movz x3 , 0x1000, lsl 16
+    movz x3 , 0x0200, lsl 16
     l1:
     sub x3, x3, 1
     cbnz x3, l1
@@ -1735,6 +1280,201 @@ pata1:
     bl DrawPixel
     mov x30,x23
     br lr
+
+// ESTRELLAS
+DrawEstrellas:
+mov x23, x30
+
+movz x10, 0xffff, lsl 00 // color BLANCO
+movk x10, 0xffff, lsl 16
+
+add x26, x14, 6 //mov x26, 6 // RADIO DEL CIRCULO
+cmp x26, 32
+b.lt skip00 // if new radio > 32, reinicio crecimiento del r a decreciente
+sub x16, x26, 32 // (r>32) - 32
+mov x17, 32 // 32
+sub x26, x17, x16 // r = 32 - ((r>32) - 32)
+cmp x26, 0
+b.ge skip00 // if r < 0 then reinicio crecimiento a creciente de nuevo
+sub x26, XZR, x26
+skip00:
+add x24, x15, 320 //mov x24,320 (x, )  centro desde esquina inferior derecha (0,0)
+mov x25,440 // ( ,y)
+bl DrawCircle
+
+add x16, x24, x26 // x + radio
+cmp x16, SCREEN_WIDTH //
+b.lt skip0 // if x+r > 640 => reinicio el circulo a la parte der.
+sub x24, x24, SCREEN_WIDTH
+bl DrawCircle
+
+skip0:
+
+add x26, x14, 12 //mov x26, 12 // RADIO DEL CIRCULO
+cmp x26, 32
+b.lt skip01 // if new radio > 32, reinicio crecimiento del r a decreciente
+sub x16, x26, 32
+mov x17, 32
+sub x26, x17, x16
+cmp x26, 0
+b.ge skip01 // if r < 0 then reinicio crecimiento a creciente de nuevo
+sub x26, XZR, x26
+skip01:
+add x24, x15, 380 //mov x24,380 // (x, )  centro desde esquina inferior derecha (0,0)
+mov x25,70 //  ( ,y)
+bl DrawCircle
+
+add x16, x24, x26 // x + radio
+cmp x16, SCREEN_WIDTH //
+b.lt skip1 // if x+r > 640 => reinicio el circulo a la parte der.
+sub x24, x24, SCREEN_WIDTH
+bl DrawCircle
+
+skip1:
+
+
+add x26, x14, 8 //mov x26, 8 // RADIO DEL CIRCULO
+cmp x26, 32
+b.lt skip02 // if new radio > 32, reinicio crecimiento del r a decreciente
+sub x16, x26, 32
+mov x17, 32
+sub x26, x17, x16
+cmp x26, 0
+b.ge skip02 // if r < 0 then reinicio crecimiento a creciente de nuevo
+sub x26, XZR, x26
+skip02:
+add x24, x15, 520 //mov x24,520// (x,y) centro desde esquina inferior derecha (0,0)
+mov x25,35 //
+bl DrawCircle
+
+add x16, x24, x26 // x + radio
+cmp x16, SCREEN_WIDTH //
+b.lt skip2 // if x+r > 640 => reinicio el circulo a la parte der.
+sub x24, x24, SCREEN_WIDTH
+bl DrawCircle
+
+skip2:
+
+
+add x26, x14, 28 //mov x26, 28 // RADIO DEL CIRCULO
+cmp x26, 32
+b.lt skip03 // if new radio > 32, reinicio crecimiento del r a decreciente
+sub x16, x26, 32
+mov x17, 32
+sub x26, x17, x16
+cmp x26, 0
+b.ge skip03 // if r < 0 then reinicio crecimiento a creciente de nuevo
+sub x26, XZR, x26
+skip03:
+add x24, x15, 76 //mov x24,76 // (x,y) centro desde esquina inferior derecha (0,0)
+mov x25,300 //
+bl DrawCircle
+
+add x16, x24, x26 // x + radio
+cmp x16, SCREEN_WIDTH //
+b.lt skip3 // if x+r > 640 => reinicio el circulo a la parte der.
+sub x24, x24, SCREEN_WIDTH
+bl DrawCircle
+
+skip3:
+
+
+add x26, x14, 24 //mov x26, 24 // RADIO DEL CIRCULO
+cmp x26, 32
+b.lt skip04 // if new radio > 32, reinicio crecimiento del r a decreciente
+sub x16, x26, 32
+mov x17, 32
+sub x26, x17, x16
+cmp x26, 0
+b.ge skip04 // if r < 0 then reinicio crecimiento a creciente de nuevo
+sub x26, XZR, x26
+skip04:
+add x24, x15, 580 //mov x24,580 // (x,y) centro desde esquina inferior derecha (0,0)
+mov x25,128 //
+bl DrawCircle
+
+add x16, x24, x26 // x + radio
+cmp x16, SCREEN_WIDTH //
+b.lt skip4 // if x+r > 640 => reinicio el circulo a la parte der.
+sub x24, x24, SCREEN_WIDTH
+bl DrawCircle
+
+skip4:
+
+
+add x26, x14, 32 //mov x26, 32 // RADIO DEL CIRCULO
+cmp x26, 32
+b.lt skip05 // if new radio > 32, reinicio crecimiento del r a decreciente
+sub x16, x26, 32
+mov x17, 32
+sub x26, x17, x16
+cmp x26, 0
+b.ge skip05 // if r < 0 then reinicio crecimiento a creciente de nuevo
+sub x26, XZR, x26
+skip05:
+add x24, x15, 480 //mov x24,480 // (x,y) centro desde esquina inferior derecha (0,0)
+mov x25,380 //
+bl DrawCircle
+
+add x16, x24, x26 // x + radio
+cmp x16, SCREEN_WIDTH //
+b.lt skip5 // if x+r > 640 => reinicio el circulo a la parte der.
+sub x24, x24, SCREEN_WIDTH
+bl DrawCircle
+
+skip5:
+
+
+add x26, x14, 25 //mov x26, 25 // RADIO DEL CIRCULO
+cmp x26, 32
+b.lt skip06 // if new radio > 32, reinicio crecimiento del r a decreciente
+sub x16, x26, 32
+mov x17, 32
+sub x26, x17, x16
+cmp x26, 0
+b.ge skip06 // if r < 0 then reinicio crecimiento a creciente de nuevo
+sub x26, XZR, x26
+skip06:
+add x24, x15, 59 //mov x24,59 // (x,y) centro desde esquina inferior derecha (0,0)
+mov x25,460 //
+bl DrawCircle
+
+add x16, x24, x26 // x + radio
+cmp x16, SCREEN_WIDTH //
+b.lt skip6 // if x+r > 640 => reinicio el circulo a la parte der.
+sub x24, x24, SCREEN_WIDTH
+bl DrawCircle
+
+skip6:
+
+
+add x26, x14, 18 //mov x26, 18 // RADIO DEL CIRCULO
+cmp x26, 32
+b.lt skip07 // if new radio > 32, reinicio crecimiento del r a decreciente
+sub x16, x26, 32
+mov x17, 32
+sub x26, x17, x16
+cmp x26, 0
+b.ge skip07 // if r < 0 then reinicio crecimiento a creciente de nuevo
+sub x26, XZR, x26
+skip07:
+add x24, x15, 100 //mov x24,100// (x,y) centro desde esquina inferior derecha (0,0)
+mov x25,16 //
+bl DrawCircle
+
+add x16, x24, x26 // x + radio
+cmp x16, SCREEN_WIDTH //
+b.lt skip7 // if x+r > 640 => reinicio el circulo a la parte der.
+sub x24, x24, SCREEN_WIDTH
+bl DrawCircle
+
+skip7:
+
+returnDrawEstrellas:
+mov x30, x23
+br lr
+// END ESTRELLAS
+
 end:
     bl delay1
     b main
