@@ -9,20 +9,29 @@ mov x20, x0 // Save framebuffer base address to x20
 
 //movz x18, 0x0000, lsl 48
 mov x18, xzr
-mov x19, 0
+
+mov x6, 0 //movz x6, 0x0009 // variable azul0
+mov x17, 0 //movz x17, 0x0300 // variable verde0
+mov x19, 0 //movz x19, 0x0000 // variable rojo0
+movk x19, 0x0001, lsl 16
 mov x11, -1
-//movz x10, 0xfdff  // Direccion de memoria que contiene el color con el que se pinta
-//movk x10, 0x00b4, lsl 16
-movz x10, 0x77ff
+//movz x10, 0x3366
+movz x10, 0xfdC0  // Direccion de memoria que contiene el color con el que se pinta
+movk x10, 0x00b4, lsl 16
+//movz x10, 0x77ff
 
 restart:
 add x11, x11, 1 // contador sobre si cambia el rango de colores del degradé
-movz x17, 0x0200 // x17 nos pauta de que color a cual vamos, en este caso cel-cel claro
-movk x17, 0x0000, lsl 16 //
+movz x3, 0x0001 // variable azul
+movz x4, 0x0100 // variable verde
+movz x5, 0x0000
+movk x5, 0x0001 // variable rojo
+movz x17, 0x0000 // x17 nos pauta de que color a cual vamos, en este caso cel-cel claro
+movk x17, 0x0001, lsl 16 //
 //cbz x11, skippp
-movz x19, 0x0300
-movk x19, 0x0000, lsl 16
-add x10, x10, x19
+//movz x19, 0x0300
+//movk x19, 0x0000, lsl 16
+//add x10, x10, x19
 //movz x17, 0x0000 // x17 nos pauta de que color a cual vamos, en este caso cel-cel claro
 //movk x17, 0x0001, lsl 16 //
 //cmp x11, 2
@@ -46,7 +55,7 @@ skipp:
 
 // TODO FRAME 1
 frame1:
-add x10, x10, x19 // resta 5 al ultimo color
+sub x10, x10, x19 // resta 5 al ultimo color
 //add x10, 0x3366, lsl 00 // Direccion de memoria que contiene el color con el que se pinta
 //movk x10, 0xffff, lsl 16
 mov x18, x10
@@ -80,7 +89,9 @@ bl DrawCabeza
 bl delay1
 
 // TODO FRAME 2
-add x10, x18, x19 // resta 5 al ultimo color
+sub x10, x18, x16 // resta 5 al ultimo color
+sub x10, x10, x17
+sub x10, x10, x19
 //movz x10, 0x3355, lsl 00 // Direccion de memoria que contiene el color con el que se pinta
 //movk x10, 0xffff, lsl 16
 mov x18, x10
@@ -117,7 +128,9 @@ bl DrawCabeza
 // TODO FIN FRAME 2
 bl delay1
 // TODO FRAME 3
-add x10, x18, x19 // resta 5 al ultimo color
+sub x10, x18, x16 // resta 5 al ultimo color
+sub x10, x10, x17
+sub x10, x10, x19
 //movz x10, 0x3350, lsl 00 // Direccion de memoria que contiene el color con el que se pinta
 //movk x10, 0xffff, lsl 16
 mov x18, x10
@@ -152,7 +165,9 @@ bl DrawCabeza
 // TODO FIN FRAME 3
 bl delay1
 // TODO FRAME 4
-add x10, x18, x19 // resta 5 al ultimo color
+sub x10, x18, x16 // resta 5 al ultimo color
+sub x10, x10, x17
+sub x10, x10, x19
 //movz x10, 0x3345, lsl 00 // Direccion de memoria que contiene el color con el que se pinta
 //movk x10, 0xffff, lsl 16
 mov x18, x10
@@ -186,7 +201,9 @@ bl DrawCabeza
 // TODO FIN FRAME 4
 bl delay1
 // TODO FRAME 5
-add x10, x18, x19 // resta 5 al ultimo color
+sub x10, x18, x16 // resta 5 al ultimo color
+sub x10, x10, x17
+sub x10, x10, x19
 //movz x10, 0x3340, lsl 00 // Direccion de memoria que contiene el color con el que se pinta
 //movk x10, 0xffff, lsl 16
 mov x18, x10
@@ -221,7 +238,9 @@ bl DrawCabeza
 // TODO FIN FRAME 5
 bl delay1
 // TODO FRAME 6
-add x10, x18, x19 // resta 5 al ultimo color
+sub x10, x18, x16 // resta 5 al ultimo color
+sub x10, x10, x17
+sub x10, x10, x19
 //movz x10, 0x3335, lsl 00 // Direccion de memoria que contiene el color con el que se pinta
 //movk x10, 0xffff, lsl 16
 mov x18, x10
@@ -259,7 +278,9 @@ bl delay1
 // TODO FRAME 7
 
 // FONDO
-sub x10, x18, x19 // resta 5 al ultimo color
+sub x10, x18, x16 // resta 5 al ultimo color
+sub x10, x10, x17
+sub x10, x10, x19
 //movz x10, 0x3330, lsl 00 // Direccion de memoria que contiene el color con el que se pinta
 //movk x10, 0xffff, lsl 16
 mov x18, x10
@@ -299,7 +320,9 @@ bl delay1
 // TODO FRAME 8
 
 // FONDO
-sub x10, x18, x19 // resta 5 al ultimo color
+sub x10, x18, x16 // resta 5 al ultimo color
+sub x10, x10, x17
+sub x10, x10, x19
 //movz x10, 0x3325, lsl 00 // Direccion de memoria que contiene el color con el que se pinta
 //movk x10, 0xffff, lsl 16
 mov x18, x10
@@ -338,7 +361,9 @@ bl DrawCabeza
 bl delay1
 
 // TODO FRAME 9
-sub x10, x18, x19 // resta 5 al ultimo color
+sub x10, x18, x16 // resta 5 al ultimo color
+sub x10, x10, x17
+sub x10, x10, x19
 //movz x10, 0x3320, lsl 00 // Direccion de memoria que contiene el color con el que se pinta
 //movk x10, 0xffff, lsl 16
 mov x18, x10
@@ -373,7 +398,9 @@ bl DrawCabeza
 bl delay1
 
 // TODO FRAME 10
-sub x10, x18, x19 // resta 5 al ultimo color
+sub x10, x18, x16 // resta 5 al ultimo color
+sub x10, x10, x17
+sub x10, x10, x19
 //movz x10, 0x3315, lsl 00 // Direccion de memoria que contiene el color con el que se pinta
 //movk x10, 0xffff, lsl 16
 mov x18, x10
@@ -410,7 +437,9 @@ bl DrawCabeza
 bl delay1
 
 // TODO FRAME 11
-sub x10, x18, x19 // resta 5 al ultimo color
+sub x10, x18, x16 // resta 5 al ultimo color
+sub x10, x10, x17
+sub x10, x10, x19
 //movz x10, 0x3310, lsl 00 // Direccion de memoria que contiene el color con el que se pinta
 //movk x10, 0xffff, lsl 16
 mov x18, x10
@@ -448,12 +477,14 @@ bl DrawCabeza
 bl delay1
 
 // TODO FRAME 12 TODO: MOVER ESTRELLAS
-sub x10, x18, x19 // resta 5 al ultimo color
+sub x10, x18, x16 // resta 5 al ultimo color
+sub x10, x10, x17
+sub x10, x10, x19
 //movz x10, 0x3305, lsl 00 // Direccion de memoria que contiene el color con el que se pinta
 //movk x10, 0xffff, lsl 16
 
 mov x18, x10
-add x11, x11, 1 // contador sobre si cambia el rango de colores del degradé
+//add x11, x11, 1 // contador sobre si cambia el rango de colores del degradé
 
 //add x10, x10, x17 //movz x17, 0x0000, lsl 00 // Aca usamos x21 porque de todos modos le vamos a borrar el contenido mas adelante
 //movk x17, 0x0001, lsl 16 // Setea un color para que vaya aumentando el rojo y el azul
@@ -599,29 +630,58 @@ DrawCircle:
 
 DrawFondo:
     mov x27,x30
-    mov x3,0
-    mov x4,0
-    mov x5,640
-    mov x6,480
     //movz w10,0x3366, lsl 00 // Setea color del fondo
     mov x0,x20 // VA AL INICIO
-    sub x2,x6,x4 // Calcula el alto
+    mov x2,SCREEN_HEIGH // Calcula el alto
     mov x21, 0 //
     dfLoop:
-    sub x1,x5,x3 // Guarda en x1 el ancho
+    mov x1,SCREEN_WIDTH// Guarda en x1 el ancho
     dfLoopb:
     sub x1,x1,1 // x1 - 1
     stur w10,[x0] // Pinta del color de w10
     add x0,x0,4 // Next Pixel
     cbnz x1,dfLoopb // return
-    mov x22, 9
+    mov x22,480
     cmp x21,x22 // COMPARA CONTADOR NUEVE
     b.ne skipResetBlue // SI NO TERMINO EL CONTADOR, NO LO RESETEA
-    //movz x17, 0x0001, lsl 00 // Aca usamos x21 porque de todos modos le vamos a borrar el contenido mas adelante
-    //movk x17, 0x0003, lsl 16 // Setea un color para que vaya aumentando el rojo y el azul
-    //0x00010000
-    //  A_R_G_B_
-    add w10,w10,w17 // Suma colores especificados en w17
+    lsl x12, x10, 62
+    lsl x12, x12, 62
+    add x12, x12, x3
+    cmp x12, 0xFF
+    b.lt skyp
+    sub x12, x12, 0xFF
+    sub w10, w10, w12
+    b skyp1
+    skyp:
+    add w10,w10,w3 // Suma azul
+    skyp1:
+
+    lsr x12, x10, 2
+    lsl x12, x10, 62
+    lsl x12, x12, 62
+    add x12, x12, x4
+    cmp x12, 0xFF
+    b.lt skyp2
+    sub x12, x12, 0xFF
+    sub w10, w10, w12
+    b skyp3
+    skyp2:
+    add w10,w10,w4 // Suma verde
+    skyp3:
+
+    lsr x12, x10, 4
+        lsl x12, x10, 62
+        lsl x12, x12, 62
+        add x12, x12, x5
+        cmp x12, 0xFF
+        b.lt skyp4
+        sub x12, x12, 0xFF
+        sub w10, w10, w12
+        b skyp5
+        skyp4:
+        add w10,w10,w5 // Suma rojo
+        skyp5:
+
     mov x21,0   // RESETEA EL CONTADOR (Aca es donde reseteamos x21 por eso no importa usarlo como color)
     skipResetBlue: // Continua el ciclo de 9
     add x21,x21,1 // Suma 1 al contador
