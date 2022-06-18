@@ -5,7 +5,11 @@
 
 .globl main
 main:
-mov x20, x0 // Save framebuffer base address to x20
+    //mov x20, x0 // Save framebuffer base address to x20
+
+str x0, [sp, #-8]! // Guardar el FrameBuffer al Stack
+
+ldr x20, =SUB_FB // Usamos el Sub Buffer
 
 //movz x18, 0x0000, lsl 48
 mov x18, xzr
@@ -28,30 +32,11 @@ movz x5, 0x0000
 movk x5, 0x0001 // variable rojo
 movz x17, 0x0000 // x17 nos pauta de que color a cual vamos, en este caso cel-cel claro
 movk x17, 0x0001, lsl 16 //
-//cbz x11, skippp
-//movz x19, 0x0300
-//movk x19, 0x0000, lsl 16
-//add x10, x10, x19
-//movz x17, 0x0000 // x17 nos pauta de que color a cual vamos, en este caso cel-cel claro
-//movk x17, 0x0001, lsl 16 //
-//cmp x11, 2
-//b.ne skippp
-//movz x19, 0x0000
-//movk x19, 0x0001, lsl 16
-//movz x17, 0x0003 // x17 nos pauta de que color a cual vamos, en este caso fondo-cel
-//movk x17, 0x0403, lsl 16 //
-//cmp x11, 3
-//b.ne skippp
-//movz x19, 0x0000
-//movk x19, 0x0001, lsl 16
-//movz x17, 0x0000 // x17 nos pauta de que color a cual vamos, en este caso negro-fondo claro
-//movk x17, 0x0001, lsl 16 //
 skippp:
 cbz x18, skipp
 mov x10, x18 // pone el ultimo color del frame 12 en el x10 para el frame "13"
 //add x10, x10, x19 // resta 5 al ultimo color
 skipp:
-
 
 // TODO FRAME 1
 frame1:
@@ -86,6 +71,7 @@ mov x3, 396
 mov x4, 168
 bl DrawCabeza
 // TODO FIN FRAME 1
+
 bl delay1
 
 // TODO FRAME 2
@@ -96,8 +82,6 @@ sub x10, x10, x19
 //movk x10, 0xffff, lsl 16
 mov x18, x10
 
-//add x10, x10, x17 //movz x17, 0x0000, lsl 00 // Aca usamos x21 porque de todos modos le vamos a borrar el contenido mas adelante
-//movk x17, 0x0001, lsl 16 // Setea un color para que vaya aumentando el rojo y el azul
 bl DrawFondo
 
 // ESTRELLAS
@@ -484,10 +468,7 @@ sub x10, x10, x19
 //movk x10, 0xffff, lsl 16
 
 mov x18, x10
-//add x11, x11, 1 // contador sobre si cambia el rango de colores del degradé
 
-//add x10, x10, x17 //movz x17, 0x0000, lsl 00 // Aca usamos x21 porque de todos modos le vamos a borrar el contenido mas adelante
-//movk x17, 0x0001, lsl 16 // Setea un color para que vaya aumentando el rojo y el azul
 bl DrawFondo
 
 // ESTRELLAS
@@ -668,7 +649,6 @@ DrawFondo:
     skyp2:
     add w10,w10,w4 // Suma verde
     skyp3:
-
     lsr x12, x10, 4
         lsl x12, x10, 62
         lsl x12, x12, 62
@@ -681,7 +661,6 @@ DrawFondo:
         skyp4:
         add w10,w10,w5 // Suma rojo
         skyp5:
-
     mov x21,0   // RESETEA EL CONTADOR (Aca es donde reseteamos x21 por eso no importa usarlo como color)
     skipResetBlue: // Continua el ciclo de 9
     add x21,x21,1 // Suma 1 al contador
@@ -691,10 +670,16 @@ DrawFondo:
     br lr
 
 delay1:
+    mov x4, x30
+
+    ldr x27, [sp, #0] // Obtengo de vuelta el FrameBuffer
+    bl Draw_To_Screen // Aplica los cambios a la pantalla! Espera en x27 el FrameBuffer.
+
     movz x3 , 0x0200, lsl 16 // 0x0200 ideal time
     l1:
     sub x3, x3, 1
     cbnz x3, l1
+    mov x30, x4
     br lr
 
 // FUNCIONES DE EXTREMIDADES COMPLETAS
@@ -995,7 +980,6 @@ DrawBody: // Dado dos puntos (x3,x4) y (x5,x6) dibuja el cuerpo con ese pixel co
     add x22, x22, 24
     bl DrawPixel
     // END CHISPAS
-
     mov x30, x23
     br lr
     // END BODY
@@ -1005,41 +989,34 @@ DrawCola1:
     // Borde negro cola
     movz x10, 0x0000, lsl 00 // Set color in black
     movk x10, 0x0000, lsl 16
-
     add x21,x3,12 // x21 y x22 se setean aca para la parte gris
     add x22,x4,12
     add x5, x3,48
     add x6, x4,36
     bl DrawSquare
-
     add x3, x3, 12
     add x4, x4, 12
     add x5, x3,48
     add x6, x4,36
     bl DrawSquare
-
     add x3, x3, 12
     add x4, x4, 12
     add x5, x3,48
     add x6, x4,36
     bl DrawSquare
-
     add x3, x3, 12
     add x4, x4, 12
     add x5, x3,48
     add x6, x4,36
     bl DrawSquare
-
     add x3,x3, 12
     add x4,x4, 12
     add x5, x3,36
     add x6, x4,36
     bl DrawSquare
-
     //Parte gris
     movz x10, 0xD5D6, lsl 00 // Set color in grey
     movk x10, 0x00D8, lsl 16
-
     bl DrawPixel // Este draw pixel lo ejecuto asi sin setear argumentos porque en realidad estan en la linea anterior
     add x21, x21, 12
     bl DrawPixel
@@ -1266,7 +1243,6 @@ pata4: //4th leg
     bl DrawPixel
     sub x22, x22, 12
     bl DrawPixel
-
     movz x10, 0xD5D6, lsl 00 // Set color in grey
     movk x10, 0x00D8, lsl 16
     add x22, x22, 12
@@ -1295,7 +1271,6 @@ pata3:
     bl DrawSquare
     add x21, x21, 48
     bl DrawPixel
-
     movz x10, 0xD5D6, lsl 00 // Set color in grey
     movk x10, 0x00D8, lsl 16
     sub x3, x21, 36
@@ -1311,7 +1286,6 @@ pata2:
     //2nd leg
     movz x10, 0x0000, lsl 00 // Set color in black
     movk x10, 0x0000, lsl 16
-
     bl DrawPixel
     add x22, x22, 12
     bl DrawPixel
@@ -1322,11 +1296,9 @@ pata2:
     add x21, x21, 12 // 336, x21 base parte gris
     sub x22, x22, 12 // 324, x22 base parte gris
     bl DrawPixel
-
     movz x10, 0xD5D6, lsl 00 // Set color in grey
     movk x10, 0x00D8, lsl 16
     sub x21, x21, 24 //mov x21, 312
-    //mov x22, 324
     bl DrawPixel
     add x21, x21, 12
     bl DrawPixel
@@ -1381,263 +1353,213 @@ pata1:
 
 // ESTRELLAS
 DrawEstrellas:
-mov x23, x30
-
-movz x10, 0xffff, lsl 00 // color BLANCO
-movk x10, 0xffff, lsl 16
-
-add x26, x14, 6 //mov x26, 6 // RADIO DEL CIRCULO
-cmp x26, 32
-b.lt skip00 // if new radio > 32, reinicio crecimiento del r a decreciente
-sub x16, x26, 32 // (r>32) - 32
-mov x7, 32 // 32
-sub x26, x7, x16 // r = 32 - ((r>32) - 32)
-cmp x26, 0
-b.ge skip00 // if r < 0 then reinicio crecimiento a creciente de nuevo
-sub x26, XZR, x26
-skip00:
-add x24, x15, 320 //mov x24,320 (x, )  centro desde esquina inferior derecha (0,0)
-mov x25,440 // ( ,y)
-bl DrawCircle
-
-add x16, x24, x26 // x + radio
-cmp x16, SCREEN_WIDTH //
-b.lt skip0 // if x+r > 640 => reinicio el circulo a la parte der.
-sub x24, x24, SCREEN_WIDTH
-bl DrawCircle
-
-skip0:
-
-add x26, x14, 12 //mov x26, 12 // RADIO DEL CIRCULO
-cmp x26, 32
-b.lt skip01 // if new radio > 32, reinicio crecimiento del r a decreciente
-sub x16, x26, 32
-mov x7, 32
-sub x26, x7, x16
-cmp x26, 0
-b.ge skip01 // if r < 0 then reinicio crecimiento a creciente de nuevo
-sub x26, XZR, x26
-skip01:
-add x24, x15, 380 //mov x24,380 // (x, )  centro desde esquina inferior derecha (0,0)
-mov x25,70 //  ( ,y)
-bl DrawCircle
-
-add x16, x24, x26 // x + radio
-cmp x16, SCREEN_WIDTH //
-b.lt skip1 // if x+r > 640 => reinicio el circulo a la parte der.
-sub x24, x24, SCREEN_WIDTH
-bl DrawCircle
-
-skip1:
-
-
-add x26, x14, 8 //mov x26, 8 // RADIO DEL CIRCULO
-cmp x26, 32
-b.lt skip02 // if new radio > 32, reinicio crecimiento del r a decreciente
-sub x16, x26, 32
-mov x7, 32
-sub x26, x7, x16
-cmp x26, 0
-b.ge skip02 // if r < 0 then reinicio crecimiento a creciente de nuevo
-sub x26, XZR, x26
-skip02:
-add x24, x15, 520 //mov x24,520// (x,y) centro desde esquina inferior derecha (0,0)
-mov x25,35 //
-bl DrawCircle
-
-add x16, x24, x26 // x + radio
-cmp x16, SCREEN_WIDTH //
-b.lt skip2 // if x+r > 640 => reinicio el circulo a la parte der.
-sub x24, x24, SCREEN_WIDTH
-bl DrawCircle
-
-skip2:
-
-
-add x26, x14, 28 //mov x26, 28 // RADIO DEL CIRCULO
-cmp x26, 32
-b.lt skip03 // if new radio > 32, reinicio crecimiento del r a decreciente
-sub x16, x26, 32
-mov x7, 32
-sub x26, x7, x16
-cmp x26, 0
-b.ge skip03 // if r < 0 then reinicio crecimiento a creciente de nuevo
-sub x26, XZR, x26
-skip03:
-add x24, x15, 76 //mov x24,76 // (x,y) centro desde esquina inferior derecha (0,0)
-mov x25,300 //
-bl DrawCircle
-
-add x16, x24, x26 // x + radio
-cmp x16, SCREEN_WIDTH //
-b.lt skip3 // if x+r > 640 => reinicio el circulo a la parte der.
-sub x24, x24, SCREEN_WIDTH
-bl DrawCircle
-
-skip3:
-
-
-add x26, x14, 24 //mov x26, 24 // RADIO DEL CIRCULO
-cmp x26, 32
-b.lt skip04 // if new radio > 32, reinicio crecimiento del r a decreciente
-sub x16, x26, 32
-mov x7, 32
-sub x26, x7, x16
-cmp x26, 0
-b.ge skip04 // if r < 0 then reinicio crecimiento a creciente de nuevo
-sub x26, XZR, x26
-skip04:
-add x24, x15, 580 //mov x24,580 // (x,y) centro desde esquina inferior derecha (0,0)
-mov x25,128 //
-bl DrawCircle
-
-add x16, x24, x26 // x + radio
-cmp x16, SCREEN_WIDTH //
-b.lt skip4 // if x+r > 640 => reinicio el circulo a la parte der.
-sub x24, x24, SCREEN_WIDTH
-bl DrawCircle
-
-skip4:
-
-
-add x26, x14, 32 //mov x26, 32 // RADIO DEL CIRCULO
-cmp x26, 32
-b.lt skip05 // if new radio > 32, reinicio crecimiento del r a decreciente
-sub x16, x26, 32
-mov x7, 32
-sub x26, x7, x16
-cmp x26, 0
-b.ge skip05 // if r < 0 then reinicio crecimiento a creciente de nuevo
-sub x26, XZR, x26
-skip05:
-add x24, x15, 480 //mov x24,480 // (x,y) centro desde esquina inferior derecha (0,0)
-mov x25,380 //
-bl DrawCircle
-
-add x16, x24, x26 // x + radio
-cmp x16, SCREEN_WIDTH //
-b.lt skip5 // if x+r > 640 => reinicio el circulo a la parte der.
-sub x24, x24, SCREEN_WIDTH
-bl DrawCircle
-
-skip5:
-
-
-add x26, x14, 25 //mov x26, 25 // RADIO DEL CIRCULO
-cmp x26, 32
-b.lt skip06 // if new radio > 32, reinicio crecimiento del r a decreciente
-sub x16, x26, 32
-mov x7, 32
-sub x26, x7, x16
-cmp x26, 0
-b.ge skip06 // if r < 0 then reinicio crecimiento a creciente de nuevo
-sub x26, XZR, x26
-skip06:
-add x24, x15, 59 //mov x24,59 // (x,y) centro desde esquina inferior derecha (0,0)
-mov x25,460 //
-bl DrawCircle
-
-add x16, x24, x26 // x + radio
-cmp x16, SCREEN_WIDTH //
-b.lt skip6 // if x+r > 640 => reinicio el circulo a la parte der.
-sub x24, x24, SCREEN_WIDTH
-bl DrawCircle
-
-skip6:
-
-
-add x26, x14, 18 //mov x26, 18 // RADIO DEL CIRCULO
-cmp x26, 32
-b.lt skip07 // if new radio > 32, reinicio crecimiento del r a decreciente
-sub x16, x26, 32
-mov x7, 32
-sub x26, x7, x16
-cmp x26, 0
-b.ge skip07 // if r < 0 then reinicio crecimiento a creciente de nuevo
-sub x26, XZR, x26
-skip07:
-add x24, x15, 100 //mov x24,100// (x,y) centro desde esquina inferior derecha (0,0)
-mov x25,16 //
-bl DrawCircle
-
-add x16, x24, x26 // x + radio
-cmp x16, SCREEN_WIDTH //
-b.lt skip7 // if x+r > 640 => reinicio el circulo a la parte der.
-sub x24, x24, SCREEN_WIDTH
-bl DrawCircle
-
-skip7:
-
-returnDrawEstrellas:
-mov x30, x23
-br lr
-// END ESTRELLAS
-
+    mov x23, x30
+    movz x10, 0xffff, lsl 00 // color BLANCO
+    movk x10, 0xffff, lsl 16
+    add x26, x14, 6 //mov x26, 6 // RADIO DEL CIRCULO
+    cmp x26, 32
+    b.lt skip00 // if new radio > 32, reinicio crecimiento del r a decreciente
+    sub x16, x26, 32 // (r>32) - 32
+    mov x7, 32 // 32
+    sub x26, x7, x16 // r = 32 - ((r>32) - 32)
+    cmp x26, 0
+    b.ge skip00 // if r < 0 then reinicio crecimiento a creciente de nuevo
+    sub x26, XZR, x26
+    skip00:
+    add x24, x15, 320 //mov x24,320 (x, )  centro desde esquina inferior derecha (0,0)
+    mov x25,440 // ( ,y)
+    bl DrawCircle
+    add x16, x24, x26 // x + radio
+    cmp x16, SCREEN_WIDTH //
+    b.lt skip0 // if x+r > 640 => reinicio el circulo a la parte der.
+    sub x24, x24, SCREEN_WIDTH
+    bl DrawCircle
+    skip0:
+    add x26, x14, 12 //mov x26, 12 // RADIO DEL CIRCULO
+    cmp x26, 32
+    b.lt skip01 // if new radio > 32, reinicio crecimiento del r a decreciente
+    sub x16, x26, 32
+    mov x7, 32
+    sub x26, x7, x16
+    cmp x26, 0
+    b.ge skip01 // if r < 0 then reinicio crecimiento a creciente de nuevo
+    sub x26, XZR, x26
+    skip01:
+    add x24, x15, 380 //mov x24,380 // (x, )  centro desde esquina inferior derecha (0,0)
+    mov x25,70 //  ( ,y)
+    bl DrawCircle
+    add x16, x24, x26 // x + radio
+    cmp x16, SCREEN_WIDTH //
+    b.lt skip1 // if x+r > 640 => reinicio el circulo a la parte der.
+    sub x24, x24, SCREEN_WIDTH
+    bl DrawCircle
+    skip1:
+    add x26, x14, 8 //mov x26, 8 // RADIO DEL CIRCULO
+    cmp x26, 32
+    b.lt skip02 // if new radio > 32, reinicio crecimiento del r a decreciente
+    sub x16, x26, 32
+    mov x7, 32
+    sub x26, x7, x16
+    cmp x26, 0
+    b.ge skip02 // if r < 0 then reinicio crecimiento a creciente de nuevo
+    sub x26, XZR, x26
+    skip02:
+    add x24, x15, 520 //mov x24,520// (x,y) centro desde esquina inferior derecha (0,0)
+    mov x25,35 //
+    bl DrawCircle
+    add x16, x24, x26 // x + radio
+    cmp x16, SCREEN_WIDTH //
+    b.lt skip2 // if x+r > 640 => reinicio el circulo a la parte der.
+    sub x24, x24, SCREEN_WIDTH
+    bl DrawCircle
+    skip2:
+    add x26, x14, 28 //mov x26, 28 // RADIO DEL CIRCULO
+    cmp x26, 32
+    b.lt skip03 // if new radio > 32, reinicio crecimiento del r a decreciente
+    sub x16, x26, 32
+    mov x7, 32
+    sub x26, x7, x16
+    cmp x26, 0
+    b.ge skip03 // if r < 0 then reinicio crecimiento a creciente de nuevo
+    sub x26, XZR, x26
+    skip03:
+    add x24, x15, 76 //mov x24,76 // (x,y) centro desde esquina inferior derecha (0,0)
+    mov x25,300 //
+    bl DrawCircle
+    add x16, x24, x26 // x + radio
+    cmp x16, SCREEN_WIDTH //
+    b.lt skip3 // if x+r > 640 => reinicio el circulo a la parte der.
+    sub x24, x24, SCREEN_WIDTH
+    bl DrawCircle
+    skip3:
+    add x26, x14, 24 //mov x26, 24 // RADIO DEL CIRCULO
+    cmp x26, 32
+    b.lt skip04 // if new radio > 32, reinicio crecimiento del r a decreciente
+    sub x16, x26, 32
+    mov x7, 32
+    sub x26, x7, x16
+    cmp x26, 0
+    b.ge skip04 // if r < 0 then reinicio crecimiento a creciente de nuevo
+    sub x26, XZR, x26
+    skip04:
+    add x24, x15, 580 //mov x24,580 // (x,y) centro desde esquina inferior derecha (0,0)
+    mov x25,128 //
+    bl DrawCircle
+    add x16, x24, x26 // x + radio
+    cmp x16, SCREEN_WIDTH //
+    b.lt skip4 // if x+r > 640 => reinicio el circulo a la parte der.
+    sub x24, x24, SCREEN_WIDTH
+    bl DrawCircle
+    skip4:
+    add x26, x14, 32 //mov x26, 32 // RADIO DEL CIRCULO
+    cmp x26, 32
+    b.lt skip05 // if new radio > 32, reinicio crecimiento del r a decreciente
+    sub x16, x26, 32
+    mov x7, 32
+    sub x26, x7, x16
+    cmp x26, 0
+    b.ge skip05 // if r < 0 then reinicio crecimiento a creciente de nuevo
+    sub x26, XZR, x26
+    skip05:
+    add x24, x15, 480 //mov x24,480 // (x,y) centro desde esquina inferior derecha (0,0)
+    mov x25,380 //
+    bl DrawCircle
+    add x16, x24, x26 // x + radio
+    cmp x16, SCREEN_WIDTH //
+    b.lt skip5 // if x+r > 640 => reinicio el circulo a la parte der.
+    sub x24, x24, SCREEN_WIDTH
+    bl DrawCircle
+    skip5:
+    add x26, x14, 25 //mov x26, 25 // RADIO DEL CIRCULO
+    cmp x26, 32
+    b.lt skip06 // if new radio > 32, reinicio crecimiento del r a decreciente
+    sub x16, x26, 32
+    mov x7, 32
+    sub x26, x7, x16
+    cmp x26, 0
+    b.ge skip06 // if r < 0 then reinicio crecimiento a creciente de nuevo
+    sub x26, XZR, x26
+    skip06:
+    add x24, x15, 59 //mov x24,59 // (x,y) centro desde esquina inferior derecha (0,0)
+    mov x25,460 //
+    bl DrawCircle
+    add x16, x24, x26 // x + radio
+    cmp x16, SCREEN_WIDTH //
+    b.lt skip6 // if x+r > 640 => reinicio el circulo a la parte der.
+    sub x24, x24, SCREEN_WIDTH
+    bl DrawCircle
+    skip6:
+    add x26, x14, 18 //mov x26, 18 // RADIO DEL CIRCULO
+    cmp x26, 32
+    b.lt skip07 // if new radio > 32, reinicio crecimiento del r a decreciente
+    sub x16, x26, 32
+    mov x7, 32
+    sub x26, x7, x16
+    cmp x26, 0
+    b.ge skip07 // if r < 0 then reinicio crecimiento a creciente de nuevo
+    sub x26, XZR, x26
+    skip07:
+    add x24, x15, 100 //mov x24,100// (x,y) centro desde esquina inferior derecha (0,0)
+    mov x25,16 //
+    bl DrawCircle
+    add x16, x24, x26 // x + radio
+    cmp x16, SCREEN_WIDTH //
+    b.lt skip7 // if x+r > 640 => reinicio el circulo a la parte der.
+    sub x24, x24, SCREEN_WIDTH
+    bl DrawCircle
+    skip7:
+    returnDrawEstrellas:
+    mov x30, x23
+    br lr
 end:
     bl delay1
     b main
 
-InfLoop:
-b InfLoop
+Draw_To_Screen:
+    stp   x0, x1, [sp, #-16]!
+    stp   x2, x3, [sp, #-16]!
+    stp   x4, x5, [sp, #-16]!
+    stp   x6, x7, [sp, #-16]!
+    stp   x8, x9, [sp, #-16]!
+    stp   x10, x11, [sp, #-16]!
+    stp   x12, x13, [sp, #-16]!
+    stp   x14, x15, [sp, #-16]!
 
-//movz x19, 0xC000
-//movk x19, 0x0012, lsl 16 //
-//add x19, x0, x19  //starts after the last pixel of the previous canvas 12C000
-//mov x18, x19 // Save sub-framebuffer base address to x18
-// sub-framebuffer used to paint "out-of-picture" so the refresh rate of the monitor does not catches the painting mid-run.
-mov x19, SP
-mov x18, SP
+    movz x0, 0x0012, lsl 16
+    movk x0, 0xC000, lsl 00
 
+    lsr x0, x0, 2 // X0 Limit
+    mov x1, xzr // x1 Counter
 
-//FRAME TEST
-bl DrawFondo
-bl DrawPicture
-//END FRAME TEST
-b end
+    mov x5, xzr
 
-DrawPicture: // takes an image from the sub-buffer and replaces it in the main one
-mov x23, x30
+    mov x6, xzr
+    ldr x6, =SUB_FB
+FSFB_LOOP:
+    lsl x3, x1, 3
+    add x4, x3, x6
 
-mov x0, x20
-//mov x19, x18
+    ldp w11, w12, [x4]
 
-again:
-ldur x0,[x19]
+    add x4, x3, x27 // Frame Buffer
+    stp w11, w12, [x4]
+    add x1, x1, 1
 
-add x0,x0,8
-//add x19,x19,8
-cmp x0, x18
-b.ne again
+    cmp x1, x0
+    b.HS FSFB_END
+    b FSFB_LOOP
+FSFB_END:
+    ldp   x14, x15, [sp, 0]
+    ldp   x12, x13, [sp, #16]!
+    ldp   x10, x11, [sp, #16]!
+    ldp   x8, x9, [sp, #16]!
+    ldp   x6, x7, [sp, #16]!
+    ldp   x4, x5, [sp, #16]!
+    ldp   x2, x3, [sp, #16]!
+    ldp   x0, x1, [sp, #16]!
+    add sp, sp, 16
+    br lr
 
-returnDrawPicture:
-mov x30, x23
-br lr
-
-// INFORMACION ADICIONAL UTIL
-// COLORES DEL DEGRADE DEL FONDO
-
-//00FFFFFF // 3er color de arriba                         // NEGRO
-//00003366 // 2do color de arriba // 3er color de abajo   // FONDO (AZUL OSCURO)
-//00b4fdff // 1er color de arriba // 2do color de abajo   // CELESTE
-//00ecfbfc // 1er color de abajo                          // CELESTE ClARO
-//A_R_G_B_
-
-//DISTANCIAS ENTRE COLORES (¿QUE SUMAR PARA LLEGAR DE UNO AL OTRO?)
-
-//00b4fdff - 00ecfbfc
-
-//r1-r2: 180-236: -56; r1-r2/480: -0.11666666; 9*(r1-r2)/480: -1.05; redondeo: -1
-//g1-g2: 253-251: 2; g1-g2/480: 1/240: 0.004166666; 9*(g1-g2)/480: 0.0375; redondeo: 0
-//b1-b2: 255-252: 3; b1-b2/480: 0.00625; 9*(b1-b2)/480: 0.05626; redondeo: 0
-
-//00003366 - 00b4fdff
-//r1-r2: -180; r1-r2/480: -0.375; 9*(r1-r2)/480: -3.375; redondeo: -3
-//g1-g2: 51-253: -202; g1-g2/480:  -0.420; 9*(g1-g2)/480: -3.7875; redondeo: -4
-//b1-b2: 102-255: -153; b1-b2/480: -0.31875; 9*(b1-b2)/480: -2.86875; redondeo: -3
-
-
-
-
-
-
+.data
+SUB_FB: .skip 0x12C000 // 640 * 480 * 4
 
